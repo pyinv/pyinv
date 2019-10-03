@@ -28,18 +28,18 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                           <a class="dropdown-item" href="#">My Profile</a>
-                          <a class="dropdown-item" href="{% url 'admin:password_change' %}">Change Password</a>
+                          <a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a>
                           {% if user.is_staff %}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{% url 'admin:index' %}">Admin Panel</a>
                           {% endif %}
                           <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="{% url 'admin:logout' %}">Logout</a>
+                          <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                         </div>
                     </li>
                 {% else %}
                 <li>
-                    <a class="nav-link" href="{% url 'admin:login' %}">Login</a>
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
                 </li>
                 <li>
                     <a class="nav-link" href="#">Register</a>
