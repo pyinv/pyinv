@@ -116,7 +116,6 @@ DEFAULT_FROM_EMAIL = 'hub@roboticsoutreach.org'
 SERVER_EMAIL = 'hub@roboticsoutreach.org'
 
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 

@@ -2,15 +2,14 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %}Sign Up{% endblock %}
+{% block title %}My Profile{% endblock %}
 
 {% block inner %}
     <form method="post">
       {% csrf_token %}
       {{ form|crispy }}
       <div class="text-center">
-          <button class="btn btn-success" type="submit">Sign up</button>
-          <p style="padding-top: 1em">Already have an account? <a href="{% url 'login' %}">Login here!</a></p>
+          <button class="btn btn-success" type="submit">Update</button>
       </div>
     </form>
 {% endblock %}
