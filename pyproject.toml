@@ -8,6 +8,7 @@ authors = ["Dan Trickey <dan@trickey.io>"]
 python = "^3.6"
 django = "^2.2"
 django-crispy-forms = "^1.7"
+pyotp = "^2.3"
 
 [tool.poetry.dev-dependencies]
 

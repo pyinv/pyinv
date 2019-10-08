@@ -9,12 +9,13 @@ class AccessCode(models.Model):
     class Meta:
 
         permissions = (
-            ('view_access_codes', 'View Access Codes'),
+            ('view_access_codes_values', 'View Current Access Codes'),
             ('increment_access_codes', 'Increment Access Codes'),
         )
 
     name = models.CharField(max_length=30)
-    counter = models.IntegerField()
+    counter = models.PositiveSmallIntegerField()
+    length = models.PositiveSmallIntegerField()
     secret = models.CharField(max_length=255)
 
     def __str__(self):

@@ -6,7 +6,7 @@ from .models import AccessCode
 
 @admin.register(AccessCode)
 class AccessCodeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'counter')
+    list_display = ('name', 'counter', 'length')
 
     def get_form(self, request, obj=None, change=False, **kwargs):
         form = super(AccessCodeAdmin, self).get_form(request, obj, **kwargs)
