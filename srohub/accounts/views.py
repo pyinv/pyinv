@@ -1,5 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -10,7 +11,7 @@ class SignUp(generic.CreateView):
     template_name = 'accounts/signup.html'
 
 
-class Profile(generic.UpdateView):
+class Profile(LoginRequiredMixin, generic.UpdateView):
     model = User
     template_name = 'accounts/profile.html'
     fields = ['first_name', 'last_name', 'email']
