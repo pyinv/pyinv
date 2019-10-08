@@ -1,4 +1,5 @@
 from django.contrib import admin
+from pyotp import random_base32
 
 from .models import AccessCode
 
@@ -9,5 +10,5 @@ class AccessCodeAdmin(admin.ModelAdmin):
 
     def get_form(self, request, obj=None, change=False, **kwargs):
         form = super(AccessCodeAdmin, self).get_form(request, obj, **kwargs)
-        form.base_fields['secret'].initial = "bees"
+        form.base_fields['secret'].initial = random_base32()
         return form
