@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # First Party
-    'access_codes',
     'accounts',
     'dashboard',
 
