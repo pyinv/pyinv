@@ -1,12 +1,16 @@
 from django.db import models
 
+from simple_history.models import HistoricalRecords
+
 from .asset_code import validate_asset_code, generate_asset_code
+
 
 class AssetManufacturer(models.Model):
     """The manufacturer of an asset."""
 
     name = models.CharField(max_length=30)
     notes = models.TextField(blank=True)
+    history = HistoricalRecords()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -17,6 +21,7 @@ class AssetModel(models.Model):
     name = models.CharField(max_length=30)
     is_container = models.BooleanField(default=False, verbose_name="Can contain assets")
     asset_manufacturer = models.ForeignKey(AssetManufacturer, on_delete=models.PROTECT)
+    history = HistoricalRecords()
     notes = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -47,6 +52,7 @@ class Asset(models.Model):
         choices=Condition.choices,
         default=Condition.UNKNOWN,
     )
+    history = HistoricalRecords()
     notes = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
