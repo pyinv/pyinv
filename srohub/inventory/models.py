@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 from simple_history.models import HistoricalRecords
 
@@ -14,6 +15,9 @@ class AssetManufacturer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class AssetModel(models.Model):
     """The model of an asset."""
@@ -25,6 +29,11 @@ class AssetModel(models.Model):
     notes = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        if self.asset_manufacturer.name == settings.INVENTORY_ORG:
+            return self.name
+        return f"{self.asset_manufacturer.name} {self.name}"
 
 
 class Asset(models.Model):
@@ -56,3 +65,9 @@ class Asset(models.Model):
     notes = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        if self.name is None or len(self.name) == 0:
+            return self.asset_model.name
+        else:
+            return self.name
