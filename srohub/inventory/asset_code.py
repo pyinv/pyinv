@@ -1,3 +1,4 @@
+from random import choice
 from re import compile
 
 from django.core.exceptions import ValidationError
@@ -10,7 +11,7 @@ d32 = damm32.Damm32()
 ASSET_CODE_REGEX = compile("^([A-Za-z0-9]{3})-([A-Za-z0-9]{3})-([A-Za-z0-9]{3})$")
 
 
-def validate_asset_code(value: str):
+def validate_asset_code(value: str) -> None:
     """Validate an asset code."""
     match = ASSET_CODE_REGEX.match(value)
 
@@ -24,3 +25,15 @@ def validate_asset_code(value: str):
             raise ValidationError(f"Invalid asset code check digit. {d32.calculate(e[:8])}")
     else:
         raise ValidationError("Invalid asset code format.")
+
+
+def generate_asset_code() -> str:
+
+    code = settings.INVENTORY_ORG
+
+    for _ in range(5):
+        code += choice(damm32.Damm32.ALPHABET)
+
+    code += d32.calculate(code)
+
+    return f"{code[:3]}-{code[3:6]}-{code[6:9]}"

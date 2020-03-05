@@ -64,7 +64,7 @@ class Migration(migrations.Migration):
             name='Asset',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('asset_code', models.CharField(max_length=11, unique=True, validators=[inventory.asset_code.validate_asset_code])),
+                ('asset_code', models.CharField(default=inventory.asset_code.generate_asset_code, max_length=11, unique=True, validators=[inventory.asset_code.validate_asset_code])),
                 ('name', models.CharField(blank=True, max_length=30, null=True)),
                 ('condition', models.CharField(choices=[('U', 'Unknown'), ('B', 'Broken'), ('A', 'Needs Assembly'), ('R', 'Needs Repair'), ('W', 'Working')], default='U', max_length=2)),
                 ('notes', models.TextField(blank=True)),
