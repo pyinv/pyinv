@@ -68,6 +68,6 @@ class Asset(models.Model):
 
     def __str__(self) -> str:
         if self.name is None or len(self.name) == 0:
-            return self.asset_model.name
+            return f"{self.asset_model.name} ({self.asset_code})"
         else:
-            return self.name
+            return f"{self.name} ({self.asset_code})"
