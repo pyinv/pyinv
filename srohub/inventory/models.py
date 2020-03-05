@@ -33,8 +33,9 @@ class Asset(models.Model):
         WORKING = 'W'
 
     asset_code = models.CharField(max_length=11)  # TODO: Validate
+    name = models.CharField(max_length=30, null=True, blank=True)
     location = models.ForeignKey('Asset', on_delete=models.PROTECT)
-    asset_model = models.ForeignKey(AssetModel, on_delete=models.PROTECT, null=True, blank=True)
+    asset_model = models.ForeignKey(AssetModel, on_delete=models.PROTECT)
     condition = models.CharField(
         max_length=2,
         choices=Condition.choices,

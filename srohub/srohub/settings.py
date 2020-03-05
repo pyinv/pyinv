@@ -153,6 +153,10 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
+# Inventory
+
+INVENTORY_ORG = 'SRO'
+
 # Third Party
 
 # Crispy Forms
