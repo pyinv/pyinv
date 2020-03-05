@@ -22,6 +22,9 @@
         <div class="navbar-collapse d-lg-flex justify-content-end collapse" id="navbar">
             <ul class="navbar-nav">
                 {% if user.is_authenticated %}
+                    <li>
+                        <a class="nav-link" href="{% url 'inventory:index' %}">Inventory</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           {{ user.first_name | default:user }}
