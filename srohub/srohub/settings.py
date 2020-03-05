@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # First Party
     'accounts',
     'dashboard',
+    'inventory',
 
     # Third Party
     'crispy_forms',
