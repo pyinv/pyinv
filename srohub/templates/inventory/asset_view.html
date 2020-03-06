@@ -4,48 +4,55 @@
 
 {% block inventory_content %}
 
-<h2>Viewing: {{ object.display_name }}</h2>
+    <h2>Viewing: {{ object.display_name }}</h2>
 
-<p>
+    <p>
     <div class="btn-group" role="group">
         {% if object.location != object %}
-            <a class="btn btn-outline-secondary btn-primary btn-sm" type="button" href="{% url "inventory:asset_view" object.location.asset_code %}">
+            <a class="btn btn-secondary btn-sm" type="button"
+               href="{% url "inventory:asset_view" object.location.asset_code %}">
                 Back to {{ object.location.display_name }}
             </a>
         {% endif %}
-        <a class="btn btn-outline-secondary btn-outline-warning btn-sm" type="button" href="#">Edit</a>
+        <a class="btn btn-warning btn-sm" type="button" href="#">Edit</a>
         {% if object.asset_model.is_container %}
-            <a class="btn btn-outline-secondary btn-outline-success btn-sm" type="button" href="#">Move items here</a>
+            <a class="btn btn-success btn-sm" type="button" href="#">Move items here</a>
         {% endif %}
     </div>
-</p>
+    </p>
 
-<div class="row">
-    <div class="col-md-4">
-        <ul class="list-group">
-          <li class="list-group-item"><strong>Name:</strong> {{ object.name }}</li>
-            <li class="list-group-item"><strong>Asset Code:</strong> {{ object.asset_code }}</li>
-            <li class="list-group-item"><strong>Location:</strong> {{ object.location }}</li>
-            <li class="list-group-item"><strong>Condition:</strong> {{ object.condition }}</li>
-        </ul>
+    <div class="row">
+        <div class="col-md-4">
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Name:</strong> {{ object.name }}</li>
+                <li class="list-group-item"><strong>Asset Code:</strong> {{ object.asset_code }}</li>
+                <li class="list-group-item"><strong>Location:</strong> {{ object.location }}</li>
+                <li class="list-group-item"><strong>Condition:</strong> {{ object.condition }}</li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Model:</strong> {{ object.asset_model.display_name }}</li>
+                <li class="list-group-item"><strong>Manufacturer:</strong> {{ object.asset_model.asset_manufacturer }}
+                </li>
+                <li class="list-group-item"><strong>Can contain items:</strong> {{ object.asset_model.is_container }}
+                </li>
+                <li class="list-group-item text-center">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-success btn-sm" type="button" href="#">View</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Notes:</strong> <br/>{{ object.notes }}</li>
+            </ul>
+        </div>
     </div>
-    <div class="col-md-4">
-        <ul class="list-group">
-          <li class="list-group-item"><strong>Model:</strong> {{ object.asset_model.display_name }}</li>
-          <li class="list-group-item"><strong>Manufacturer:</strong> {{ object.asset_model.asset_manufacturer }}</li>
-          <li class="list-group-item"><strong>Can contain items:</strong> {{ object.asset_model.is_container }}</li>
-          <li class="list-group-item">&nbsp;</li>
-        </ul>
-    </div>
-    <div class="col-md-4">
-        <ul class="list-group">
-          <li class="list-group-item"><strong>Notes:</strong> <br/>{{ object.notes }}</li>
-        </ul>
-    </div>
-</div>
 
-{% if object.asset_model.is_container %}
-    <h3>Contents</h3>
-    {% include "inventory/partials/asset_table.html" %}
-{% endif %}
+    {% if object.asset_model.is_container %}
+        <h3>Contents</h3>
+        {% include "inventory/partials/asset_table.html" %}
+    {% endif %}
 {% endblock %}
