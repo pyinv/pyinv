@@ -1,0 +1,39 @@
+{% extends "inventory/partials/base.html" %}
+
+{% block title %}{{ object.display_name }}{% endblock %}
+
+{% block inventory_content %}
+
+    <h2>Viewing Model: {{ object.display_name }}</h2>
+
+    <p>
+    <div class="btn-group" role="group">
+        <a class="btn btn-warning btn-sm" type="button" href="#">Edit</a>
+    </div>
+    </p>
+
+    <div class="row">
+        <div class="col-md-4">
+                <li class="list-group-item"><strong>Name:</strong> {{ object.name }}</li>
+                <li class="list-group-item"><strong>Can contain items:</strong> {{ object.is_container }}</li>
+        </div>
+        <div class="col-md-4">
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Manufacturer:</strong> {{ object.asset_manufacturer }}</li>
+                <li class="list-group-item text-center">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-success btn-sm" type="button" href="#">View</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Notes:</strong> <br/>{{ object.notes }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>All instances of {{ object.display_name }}</h3>
+    {% include "inventory/partials/asset_table.html" %}
+{% endblock %}
