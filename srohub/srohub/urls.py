@@ -16,6 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+admin.site.site_title = "SROHub Admin"
+admin.site.site_header = "SROHub Admin"
+admin.site.index_title = "SROHub Admin"
+
 urlpatterns = [
     path('', include('dashboard.urls', namespace="dashboard")),
     path('accounts/', include('accounts.urls', namespace="accounts")),
