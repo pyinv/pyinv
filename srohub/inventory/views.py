@@ -21,7 +21,9 @@ class InventorySearchView(ListView):
             return Asset.objects.filter(
                 Q(name__icontains=self.request.GET['query']) |
                 Q(notes__icontains=self.request.GET['query']) |
-                Q(asset_code__icontains=self.request.GET['query']),
+                Q(asset_code__icontains=self.request.GET['query']) |
+                Q(asset_model__name__icontains=self.request.GET['query']) |
+                Q(asset_model__asset_manufacturer__name__icontains=self.request.GET['query']),
             )
         else:
             return Asset.objects.all()
