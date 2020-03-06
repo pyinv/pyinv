@@ -1,0 +1,26 @@
+<p>Total results: {{ page_obj.paginator.count }}</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Display Name</th>
+      <th scope="col">Manufacturer</th>
+      <th scope="col">Is Container</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for model in page_obj %}
+        <tr>
+          <th scope="row">{{ model.display_name }}</th>
+          <td><a href="{% url "inventory:manufacturer_view" model.asset_manufacturer.id %}">{{ model.asset_manufacturer }}</a></td>
+          <td>{{ model.is_container }}</td>
+          <td>
+              <div class="btn-group" role="group">
+                  <a type="button" class="btn btn-success btn-sm" href="{% url "inventory:model_view" model.pk %}">View</a>
+              </div>
+          </td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>

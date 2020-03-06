@@ -22,7 +22,7 @@
                 <li class="list-group-item"><strong>Manufacturer:</strong> {{ object.asset_manufacturer }}</li>
                 <li class="list-group-item text-center">
                     <div class="btn-group" role="group">
-                        <a class="btn btn-success btn-sm" type="button" href="#">View</a>
+                        <a class="btn btn-success btn-sm" type="button" href="{% url "inventory:manufacturer_view" object.asset_manufacturer.pk %}">View</a>
                     </div>
                 </li>
             </ul>
