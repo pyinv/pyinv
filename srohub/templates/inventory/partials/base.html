@@ -16,11 +16,12 @@
 {% block inventory_content %}{% endblock %}
 
 {%  if is_paginated %}
+
     <nav>
       <ul class="pagination text-center">
         {% if page_obj.has_previous %}
             <li class="page-item">
-              <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}&query={{ query }}" tabindex="-1">Previous</a>
             </li>
         {% else %}
             <li class="page-item disabled">
@@ -31,12 +32,12 @@
             {% if p == page_obj.number %}
                 <li class="page-item active"><span class="page-link" >{{ p }}</span></li>
             {% else %}
-                <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ p }}&query={{ query }}">{{ p }}</a></li>
             {% endif %}
         {% endfor %}
         {% if page_obj.has_next %}
             <li class="page-item">
-              <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}&query={{ query }}">Next</a>
             </li>
         {% else %}
              <li class="page-item disabled">
