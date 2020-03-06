@@ -1,19 +1,8 @@
-{% extends "base.html" %}
+{% extends "inventory/partials/base.html" %}
 
 {% block title %}{{ object.display_name }}{% endblock %}
 
-{% block content %}
-
-<h1>SRO Hub - Inventory</h1>
-
-<form action="{% url 'inventory:index' %}">
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" name="query" placeholder="Search for Assets" value="">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary btn-success" type="button">Search</button>
-      </div>
-    </div>
-</form>
+{% block inventory_content %}
 
 <h2>Viewing: {{ object.display_name }}</h2>
 
@@ -31,65 +20,8 @@
 <p>Can contain items: {{ object.asset_model.is_container }}</p>
 
 {% if object.asset_model.is_container %}
-<h3>Contents</h3>
+    <h3>Contents</h3>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Asset Code</th>
-      <th scope="col">Display Name</th>
-      <th scope="col">Model</th>
-      <th scope="col">Location</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for asset in page_obj %}
-        <tr>
-          <th scope="row">{{ asset.asset_code }}</th>
-          <td>{{ asset.display_name }}</td>
-          <td>{{ asset.asset_model }}</td>
-          <td>{{ asset.location }}</td>
-          <td>
-              <div class="btn-group" role="group">
-                  <a type="button" class="btn btn-success btn-sm" href="{% url "inventory:asset_view" asset.asset_code %}">View</a>
-              </div>
-          </td>
-        </tr>
-    {% endfor %}
-  </tbody>
-</table>
-
-{%  if is_paginated %}
-    <nav>
-      <ul class="pagination text-center">
-        {% if page_obj.has_previous %}
-            <li class="page-item">
-              <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
-            </li>
-        {% else %}
-            <li class="page-item disabled">
-              <span class="page-link" tabindex="-1">Previous</span>
-            </li>
-        {% endif %}
-        {% for p in page_obj.paginator.page_range %}
-            {% if p == page_obj.number %}
-                <li class="page-item active"><span class="page-link" >{{ p }}</span></li>
-            {% else %}
-                <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
-            {% endif %}
-        {% endfor %}
-        {% if page_obj.has_next %}
-            <li class="page-item">
-              <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
-            </li>
-        {% else %}
-             <li class="page-item disabled">
-              <span class="page-link">Next</span>
-            </li>
-        {% endif %}
-      </ul>
-    </nav>
-{% endif %}
+    {% include "inventory/partials/asset_table.html" %}
 {% endif %}
 {% endblock %}

@@ -45,8 +45,8 @@ class AssetDisplayView(DetailView):
         else:
             page_num = 1
 
-        assets = data["object"].asset_set.all()
+        assets = self.object.asset_set.filter(~Q(asset_code=self.object.asset_code))
         paginator = Paginator(assets, 20)
         data['page_obj'] = paginator.get_page(page_num)
-        data['is_paginated'] = True
+        data['is_paginated'] = self.object.asset_model.is_container
         return data

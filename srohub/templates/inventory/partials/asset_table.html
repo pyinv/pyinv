@@ -1,0 +1,26 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Asset Code</th>
+      <th scope="col">Display Name</th>
+      <th scope="col">Model</th>
+      <th scope="col">Location</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for asset in page_obj %}
+        <tr>
+          <th scope="row">{{ asset.asset_code }}</th>
+          <td>{{ asset.display_name }}</td>
+          <td>{{ asset.asset_model }}</td>
+          <td>{{ asset.location }}</td>
+          <td>
+              <div class="btn-group" role="group">
+                  <a type="button" class="btn btn-success btn-sm" href="{% url "inventory:asset_view" asset.asset_code %}">View</a>
+              </div>
+          </td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
