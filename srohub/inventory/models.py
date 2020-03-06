@@ -30,10 +30,14 @@ class AssetModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self) -> str:
+    @property
+    def display_name(self) -> str:
         if self.asset_manufacturer.name == settings.INVENTORY_ORG:
             return self.name
         return f"{self.asset_manufacturer.name} {self.name}"
+
+    def __str__(self) -> str:
+        return self.display_name
 
 
 class Asset(models.Model):
@@ -66,8 +70,12 @@ class Asset(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self) -> str:
+    @property
+    def display_name(self) -> str:
         if self.name is None or len(self.name) == 0:
-            return f"{self.asset_model.name} ({self.asset_code})"
+            return self.asset_model.display_name
         else:
-            return f"{self.name} ({self.asset_code})"
+            return self.name
+
+    def __str__(self) -> str:
+        return f"{self.display_name} ({self.asset_code})"
