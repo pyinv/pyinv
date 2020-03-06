@@ -27,7 +27,7 @@
                 <li class="list-group-item"><strong>Name:</strong> {{ object.name }}</li>
                 <li class="list-group-item"><strong>Asset Code:</strong> {{ object.asset_code }}</li>
                 <li class="list-group-item"><strong>Location:</strong> {{ object.location }}</li>
-                <li class="list-group-item"><strong>Condition:</strong> {{ object.condition }}</li>
+                <li class="list-group-item"><strong>Condition:</strong> {{ object.get_condition_display }}</li>
             </ul>
         </div>
         <div class="col-md-4">
