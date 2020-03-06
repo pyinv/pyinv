@@ -10,6 +10,7 @@ django = "^3.0"
 django-crispy-forms = "^1.9"
 damm32 = "^1.1.0"
 django-simple-history = "^2.8.0"
+gunicorn = "^20.0.4"
 
 [tool.poetry.dev-dependencies]
 
