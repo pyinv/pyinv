@@ -1,4 +1,5 @@
-from django.views.generic.list import ListView
+from django.views.generic import DetailView, ListView
+from django.core.paginator import Paginator
 from django.db.models import Q
 
 from .models import Asset
@@ -27,3 +28,25 @@ class InventorySearchView(ListView):
             )
         else:
             return Asset.objects.all()
+
+
+class AssetDisplayView(DetailView):
+
+    model = Asset
+    template_name = "inventory/asset_view.html"
+    slug_field = "asset_code"
+    slug_field_kwarg = "asset_code"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        data = super().get_context_data(object_list=object_list, **kwargs)
+
+        if 'page' in self.request.GET:
+            page_num = self.request.GET['page']
+        else:
+            page_num = 1
+
+        assets = data["object"].asset_set.all()
+        paginator = Paginator(assets, 20)
+        data['page_obj'] = paginator.get_page(page_num)
+        data['is_paginated'] = True
+        return data

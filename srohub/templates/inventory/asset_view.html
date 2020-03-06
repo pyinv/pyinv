@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Inventory{% endblock %}
+{% block title %}{{ object.display_name }}{% endblock %}
 
 {% block content %}
 
@@ -8,12 +8,30 @@
 
 <form action="{% url 'inventory:index' %}">
     <div class="input-group mb-3">
-      <input type="text" class="form-control" name="query" placeholder="Search for Assets" value="{{ query }}">
+      <input type="text" class="form-control" name="query" placeholder="Search for Assets" value="">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary btn-success" type="button">Search</button>
       </div>
     </div>
 </form>
+
+<h2>Viewing: {{ object.display_name }}</h2>
+
+{% if object.location != object %}
+<a class="btn btn-outline-secondary btn-primary btn-sm" type="button" href="{% url "inventory:asset_view" object.location.asset_code %}">
+    Back to {{ object.location.display_name }}
+</a>
+{% endif %}
+
+<p>Name: {{ object.name }}</p>
+<p>Asset Code: {{ object.asset_code }}</p>
+<p>Model: {{ object.asset_model }}</p>
+<p>Location: {{ object.location }}</p>
+<p>Condition: {{ object.condition }}</p>
+<p>Can contain items: {{ object.asset_model.is_container }}</p>
+
+{% if object.asset_model.is_container %}
+<h3>Contents</h3>
 
 <table class="table table-striped">
   <thead>
@@ -26,7 +44,7 @@
     </tr>
   </thead>
   <tbody>
-    {% for asset in asset_list %}
+    {% for asset in page_obj %}
         <tr>
           <th scope="row">{{ asset.asset_code }}</th>
           <td>{{ asset.display_name }}</td>
@@ -72,5 +90,6 @@
         {% endif %}
       </ul>
     </nav>
+{% endif %}
 {% endif %}
 {% endblock %}

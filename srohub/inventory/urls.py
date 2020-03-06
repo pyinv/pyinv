@@ -7,4 +7,5 @@ app_name = "inventory"
 
 urlpatterns = [
     path('', login_required(views.InventorySearchView.as_view()), name='index'),
+    path('/asset/<slug:slug>', login_required(views.AssetDisplayView.as_view()), name='asset_view'),
 ]
