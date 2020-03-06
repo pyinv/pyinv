@@ -15,7 +15,7 @@
         <tr>
           <th scope="row">{{ asset.asset_code }}</th>
           <td>{{ asset.display_name }}</td>
-            <td><a href="{% url "inventory:model_view" asset.asset_model.name %}">{{ asset.asset_model }}</a></td>
+            <td><a href="{% url "inventory:model_view" asset.asset_model.pk %}">{{ asset.asset_model }}</a></td>
             <td><a href="{% url "inventory:asset_view" asset.location.asset_code %}">{{ asset.location }}</a></td>
           <td>
               <div class="btn-group" role="group">

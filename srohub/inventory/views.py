@@ -56,8 +56,6 @@ class AssetModelDisplayView(DetailView):
 
     model = AssetModel
     template_name = "inventory/model_view.html"
-    slug_field = "name"
-    slug_field_kwarg = "name"
 
     def get_context_data(self, *, object_list=None, **kwargs):
         data = super().get_context_data(object_list=object_list, **kwargs)
