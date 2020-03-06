@@ -8,7 +8,7 @@ from .models import AssetManufacturer, AssetModel, Asset
 class AssetHistoryAdmin(SimpleHistoryAdmin):
     list_display = ["display_name", "asset_code", "asset_model", "condition", "location"]
     history_list_display = ["condition", "location"]
-    search_fields = ['name', 'notes', "location"]
+    search_fields = ['name', 'notes']
 
 
 admin.site.register(Asset, AssetHistoryAdmin)
