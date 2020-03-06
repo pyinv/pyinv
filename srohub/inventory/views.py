@@ -25,7 +25,7 @@ class InventorySearchView(ListView):
                 Q(asset_code__icontains=self.request.GET['query']) |
                 Q(asset_model__name__icontains=self.request.GET['query']) |
                 Q(asset_model__asset_manufacturer__name__icontains=self.request.GET['query']),
-            )
+            ).order_by("-updated_at")
         else:
             return Asset.objects.all()
 
@@ -45,7 +45,7 @@ class AssetDisplayView(DetailView):
         else:
             page_num = 1
 
-        assets = self.object.asset_set.filter(~Q(asset_code=self.object.asset_code))
+        assets = self.object.asset_set.filter(~Q(asset_code=self.object.asset_code)).order_by("-updated_at")
         paginator = Paginator(assets, 20)
         data['page_obj'] = paginator.get_page(page_num)
         data['is_paginated'] = self.object.asset_model.is_container
@@ -67,7 +67,7 @@ class AssetModelDisplayView(DetailView):
         else:
             page_num = 1
 
-        assets = self.object.asset_set.all()
+        assets = self.object.asset_set.order_by("-updated_at").all()
         paginator = Paginator(assets, 20)
         data['page_obj'] = paginator.get_page(page_num)
         data['is_paginated'] = True
