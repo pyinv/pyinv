@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Inventory{% endblock %}
+
+{% block content %}
+
+<h1>SRO Hub - Inventory</h1>
+
+<p>Information about assets are stored in the inventory.</p>
+<p>You can search for and change information about assets using this system.</p>
+
+<form>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" name="query" placeholder="Search for Assets" value="{{ query }}">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary btn-success" type="button">Search</button>
+      </div>
+    </div>
+</form>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Asset Code</th>
+      <th scope="col">Display Name</th>
+      <th scope="col">Model</th>
+      <th scope="col">Location</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for asset in asset_list %}
+        <tr>
+          <th scope="row">{{ asset.asset_code }}</th>
+          <td>{{ asset.display_name }}</td>
+          <td>{{ asset.asset_model }}</td>
+          <td>{{ asset.location }}</td>
+          <td>
+              <div class="btn-group" role="group">
+                  <a type="button" class="btn btn-success btn-sm" href="#">View</a>
+              </div>
+          </td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{%  if is_paginated %}
+    <nav>
+      <ul class="pagination text-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+              <span class="page-link" tabindex="-1">Previous</span>
+            </li>
+        {% endif %}
+        {% for p in page_obj.paginator.page_range %}
+            {% if p == page_obj.number %}
+                <li class="page-item active"><span class="page-link" >{{ p }}</span></li>
+            {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+            </li>
+        {% else %}
+             <li class="page-item disabled">
+              <span class="page-link">Next</span>
+            </li>
+        {% endif %}
+      </ul>
+    </nav>
+{% endif %}
+{% endblock %}
