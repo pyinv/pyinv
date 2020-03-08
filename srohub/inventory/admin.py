@@ -6,6 +6,8 @@ from .models import AssetManufacturer, AssetModel, Asset
 
 
 class AssetAdmin(SimpleHistoryAdmin):
+    raw_id_fields = ["location"]
+    readonly_fields = ["asset_code"]
     list_display = ["display_name", "asset_code", "asset_model", "condition", "location"]
     list_filter = ["condition"]
     history_list_display = ["condition", "location"]
