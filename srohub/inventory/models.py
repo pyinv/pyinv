@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.urls import reverse
 
 from simple_history.models import HistoricalRecords
 
@@ -79,3 +80,9 @@ class Asset(models.Model):
 
     def __str__(self) -> str:
         return f"{self.display_name} ({self.asset_code})"
+
+    def get_absolute_url(self):
+        return reverse("inventory:asset_view", args=[self.asset_code])
+
+    def get_edit_url(self):
+        return reverse("inventory:asset_edit", args=[self.asset_code])

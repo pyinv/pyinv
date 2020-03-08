@@ -1,4 +1,4 @@
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, UpdateView
 from django.core.paginator import Paginator
 from django.db.models import Q
 
@@ -50,6 +50,19 @@ class AssetDisplayView(DetailView):
         data['page_obj'] = paginator.get_page(page_num)
         data['is_paginated'] = self.object.asset_model.is_container
         return data
+
+
+class AssetUpdateView(UpdateView):
+
+    model = Asset
+    template_name = "inventory/asset_edit.html"
+    slug_field = "asset_code"
+    slug_field_kwarg = "asset_code"
+
+    fields = ["name", "asset_model", "condition", "location", "notes"]
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()
 
 
 class AssetModelDisplayView(DetailView):
