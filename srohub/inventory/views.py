@@ -26,6 +26,7 @@ class InventorySearchView(LoginRequiredMixin, ListView):
                 Q(asset_code__icontains=self.request.GET['query']) |
                 Q(asset_model__name__icontains=self.request.GET['query']) |
                 Q(asset_model__asset_manufacturer__name__icontains=self.request.GET['query']),
+                ~Q(condition="D")  # Ignore disposed assets.
             ).order_by("-updated_at")
         else:
             return Asset.objects.all()

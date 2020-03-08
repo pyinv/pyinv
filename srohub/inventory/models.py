@@ -59,6 +59,7 @@ class Asset(models.Model):
         """The condition of an item."""
         UNKNOWN = 'U'
         BROKEN = 'B'
+        DISPOSED = 'D'
         NEEDS_ASSEMBLY = 'A'
         NEEDS_REPAIR = 'R'
         WORKING = 'W'
