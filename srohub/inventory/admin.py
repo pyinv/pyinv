@@ -10,7 +10,7 @@ class AssetAdmin(SimpleHistoryAdmin):
     readonly_fields = ["asset_code"]
     list_display = ["display_name", "asset_code", "asset_model", "condition", "location"]
     list_filter = ["condition"]
-    history_list_display = ["condition", "location"]
+    history_list_display = ["condition", "location__name"]
     search_fields = ['asset_code', 'name', 'notes', "asset_model__name", "asset_model__asset_manufacturer__name"]
 
 
