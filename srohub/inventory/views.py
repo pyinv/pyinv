@@ -1,11 +1,12 @@
 from django.views.generic import DetailView, ListView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db.models import Q
 
 from .models import Asset, AssetModel, AssetManufacturer
 
 
-class InventorySearchView(ListView):
+class InventorySearchView(LoginRequiredMixin, ListView):
 
     model = Asset
     template_name = "inventory/search.html"
@@ -30,7 +31,7 @@ class InventorySearchView(ListView):
             return Asset.objects.all()
 
 
-class AssetDisplayView(DetailView):
+class AssetDisplayView(LoginRequiredMixin, DetailView):
 
     model = Asset
     template_name = "inventory/asset_view.html"
@@ -52,7 +53,7 @@ class AssetDisplayView(DetailView):
         return data
 
 
-class AssetUpdateView(UpdateView):
+class AssetUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Asset
     template_name = "inventory/asset_edit.html"
@@ -65,7 +66,7 @@ class AssetUpdateView(UpdateView):
         return self.object.get_absolute_url()
 
 
-class AssetModelDisplayView(DetailView):
+class AssetModelDisplayView(LoginRequiredMixin, DetailView):
 
     model = AssetModel
     template_name = "inventory/model_view.html"
@@ -85,7 +86,7 @@ class AssetModelDisplayView(DetailView):
         return data
 
 
-class AssetManufacturerDisplayView(DetailView):
+class AssetManufacturerDisplayView(LoginRequiredMixin, DetailView):
 
     model = AssetManufacturer
     template_name = "inventory/manufacturer_view.html"
