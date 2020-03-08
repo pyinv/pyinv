@@ -1,5 +1,5 @@
 from django.views.generic import DetailView, ListView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.paginator import Paginator
 from django.db.models import Q
 
@@ -53,7 +53,7 @@ class AssetDisplayView(LoginRequiredMixin, DetailView):
         return data
 
 
-class AssetUpdateView(LoginRequiredMixin, UpdateView):
+class AssetUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
     model = Asset
     template_name = "inventory/asset_edit.html"
@@ -61,6 +61,9 @@ class AssetUpdateView(LoginRequiredMixin, UpdateView):
     slug_field_kwarg = "asset_code"
 
     fields = ["name", "asset_model", "condition", "location", "notes"]
+
+    permission_required = "inventory.change_asset"
+    permission_denied_message = "You do not have permission to update assets."
 
     def get_success_url(self):
         return self.object.get_absolute_url()
