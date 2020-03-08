@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.conf import settings
 from django.urls import reverse
@@ -41,6 +42,16 @@ class AssetModel(models.Model):
         return self.display_name
 
 
+def location_validator(val):
+    try:
+        asset = Asset.objects.filter(pk=val).get()
+    except:
+        raise ValidationError("Not a valid asset.")
+
+    if not asset.asset_model.is_container:
+        raise ValidationError(f"{asset} is not a container.")
+
+
 class Asset(models.Model):
     """An individual instance of a assetmodel."""
 
@@ -59,7 +70,7 @@ class Asset(models.Model):
         default=generate_asset_code,
     )
     name = models.CharField(max_length=30, null=True, blank=True)
-    location = models.ForeignKey('Asset', on_delete=models.PROTECT)
+    location = models.ForeignKey('Asset', on_delete=models.PROTECT, validators=[location_validator])
     asset_model = models.ForeignKey(AssetModel, on_delete=models.PROTECT)
     condition = models.CharField(
         max_length=2,
