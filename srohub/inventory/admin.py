@@ -13,7 +13,7 @@ class AssetAdmin(SimpleHistoryAdmin):
 
 
 class AssetModelAdmin(SimpleHistoryAdmin):
-    list_display = ["name", "is_container", "asset_manufacturer"]
+    list_display = ["name", "asset_manufacturer", "is_container"]
     list_filter = ["is_container"]
     history_list_display = list_display + ["notes"]
     search_fields = ["name", "asset_manufacturer__name", "notes"]
