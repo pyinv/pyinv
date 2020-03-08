@@ -5,12 +5,25 @@ from simple_history.admin import SimpleHistoryAdmin
 from .models import AssetManufacturer, AssetModel, Asset
 
 
-class AssetHistoryAdmin(SimpleHistoryAdmin):
+class AssetAdmin(SimpleHistoryAdmin):
     list_display = ["display_name", "asset_code", "asset_model", "condition", "location"]
+    list_filter = ["condition"]
     history_list_display = ["condition", "location"]
-    search_fields = ['name', 'notes']
+    search_fields = ['asset_code', 'name', 'notes', "asset_model__name", "asset_model__asset_manufacturer__name"]
 
 
-admin.site.register(Asset, AssetHistoryAdmin)
-admin.site.register(AssetModel, SimpleHistoryAdmin)
-admin.site.register(AssetManufacturer, SimpleHistoryAdmin)
+class AssetModelAdmin(SimpleHistoryAdmin):
+    list_display = ["name", "is_container", "asset_manufacturer"]
+    list_filter = ["is_container"]
+    history_list_display = list_display + ["notes"]
+    search_fields = ["name", "asset_manufacturer__name", "notes"]
+
+
+class AssetManufacturerAdmin(SimpleHistoryAdmin):
+    list_display = ["name"]
+    search_fields = ["name"]
+
+
+admin.site.register(Asset, AssetAdmin)
+admin.site.register(AssetModel, AssetModelAdmin)
+admin.site.register(AssetManufacturer, AssetManufacturerAdmin)
