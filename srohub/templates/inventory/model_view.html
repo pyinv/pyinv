@@ -8,7 +8,9 @@
 
     <p>
     <div class="btn-group" role="group">
-        <a class="btn btn-warning btn-sm" type="button" href="#">Edit</a>
+        {% if perms.change_asset_model %}
+            <a class="btn btn-warning btn-sm" type="button" href="{{ object.get_edit_url }}">Edit</a>
+        {% endif %}
     </div>
     </p>
 

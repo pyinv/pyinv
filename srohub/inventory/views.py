@@ -107,6 +107,20 @@ class AssetModelDisplayView(LoginRequiredMixin, DetailView):
         return data
 
 
+class AssetModelUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+
+    model = AssetModel
+    template_name = "inventory/model_edit.html"
+
+    fields = ["name", "asset_manufacturer", "is_container", "notes"]
+
+    permission_required = "inventory.change_asset_model"
+    permission_denied_message = "You do not have permission to update asset models."
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()
+
+
 class AssetManufacturerDisplayView(LoginRequiredMixin, DetailView):
 
     model = AssetManufacturer

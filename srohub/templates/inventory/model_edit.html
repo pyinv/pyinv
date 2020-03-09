@@ -1,0 +1,36 @@
+{% extends "inventory/partials/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}{{ object.display_name }}{% endblock %}
+
+{% block inventory_content %}
+
+    <h2>Editing Model: {{ object.display_name }}</h2>
+
+    <div class="btn-group" role="group">
+        {% if object.location != object %}
+            <a class="btn btn-secondary btn-sm" type="button"
+               href="{{ object.get_absolute_url }}">
+                Back to {{ object.display_name }}
+            </a>
+        {% endif %}
+    </div>
+    </p>
+
+    <form method="post">
+      {% csrf_token %}
+      {% for message in messages %}
+        <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ message }}
+        </div>
+      {% endfor %}
+      {{ form|crispy }}
+      <div class="text-center">
+          <button class="btn btn-success" type="submit">Update</button>
+      </div>
+    </form>
+{% endblock %}
