@@ -11,7 +11,7 @@
   <tbody>
     {% for consumable in consumables %}
         <tr>
-            <td><a href="#">{{ consumable.consumable_model }}</a></td>
+            <td><a href="{{ consumable.consumable_model.get_absolute_url }}">{{ consumable.consumable_model }}</a></td>
             <td><a href="{{ location.get_absolute_url }}">{{ consumable.location }}</a></td>
             <td>{{ consumable.quantity }}</td>
             <td>{{ consumable.updated_at }}</td>

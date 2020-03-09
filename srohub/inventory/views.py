@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.urls import reverse
 
-from .models import Asset, AssetModel, AssetManufacturer, Consumable
+from .models import Asset, AssetModel, AssetManufacturer, Consumable, ConsumableModel
 
 
 class InventorySearchView(LoginRequiredMixin, ListView):
@@ -181,3 +181,15 @@ class AssetManufacturerDeleteView(LoginRequiredMixin, PermissionRequiredMixin, D
 
     def get_success_url(self):
         return reverse("inventory:index")
+
+
+class ConsumableModelDisplayView(LoginRequiredMixin, DetailView):
+
+    model = ConsumableModel
+    template_name = "inventory/consumablemodel_view.html"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        data = super().get_context_data(object_list=object_list, **kwargs)
+
+        data['consumables'] = Consumable.objects.filter(consumable_model=self.object).all()
+        return data

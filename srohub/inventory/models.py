@@ -144,14 +144,17 @@ class ConsumableModel(models.Model):
     def __str__(self) -> str:
         return self.display_name
 
+    def get_total(self) -> int:
+        return self.consumable_set.aggregate(quantity=models.Sum('quantity')).get('quantity')
+
     def get_absolute_url(self):
-        return reverse("inventory:consumable_view", args=[self.pk])
+        return reverse("inventory:consumablemodel_view", args=[self.pk])
 
     def get_edit_url(self):
-        return reverse("inventory:consumable_edit", args=[self.pk])
+        return reverse("inventory:consumablemodel_edit", args=[self.pk])
 
     def get_delete_url(self):
-        return reverse("inventory:consumable_delete", args=[self.pk])
+        return reverse("inventory:consumablemodel_delete", args=[self.pk])
 
 
 class Consumable(models.Model):

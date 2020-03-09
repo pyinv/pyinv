@@ -1,0 +1,52 @@
+{% extends "inventory/partials/base.html" %}
+
+{% block title %}{{ object.display_name }}{% endblock %}
+
+{% block inventory_content %}
+
+    <h2>Viewing: {{ object.display_name }}</h2>
+
+    <p>
+    <div class="btn-group" role="group">
+        {% if object.location != object %}
+            <a class="btn btn-secondary btn-sm" type="button"
+               href="{{ object.location.get_absolute_url}}">
+                Back to {{ object.location.display_name }}
+            </a>
+        {% endif %}
+        {% if perms.inventory.change_consumablemodel %}
+            <a class="btn btn-warning btn-sm" type="button" href="#">Edit</a>
+        {% endif %}
+        {% if perms.inventory.delete_consumablemodel %}
+            <a class="btn btn-danger btn-sm" type="button" href="#">Delete</a>
+        {% endif %}
+    </div>
+    </p>
+
+    <div class="row">
+        <div class="col-md-4">
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Name:</strong> {{ object.name }}</li>
+                <li class="list-group-item"><strong>Total Quantity:</strong> {{ object.get_total }}</li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Manufacturer:</strong> {{ object.asset_manufacturer }}</li>
+                </li>
+                <li class="list-group-item text-center">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-success btn-sm" type="button" href="{% url 'inventory:manufacturer_view' object.asset_manufacturer.pk %}">View</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Notes:</strong> <br/>{{ object.notes }}</li>
+            </ul>
+        </div>
+    </div>
+
+    {% include "inventory/partials/consumable_table.html" %}
+{% endblock %}
