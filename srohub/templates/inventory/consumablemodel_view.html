@@ -8,12 +8,6 @@
 
     <p>
     <div class="btn-group" role="group">
-        {% if object.location != object %}
-            <a class="btn btn-secondary btn-sm" type="button"
-               href="{{ object.location.get_absolute_url}}">
-                Back to {{ object.location.display_name }}
-            </a>
-        {% endif %}
         {% if perms.inventory.change_consumable_model %}
             <a class="btn btn-warning btn-sm" type="button" href="{{ object.get_edit_url }}">Edit</a>
         {% endif %}
