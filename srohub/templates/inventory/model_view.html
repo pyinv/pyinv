@@ -8,10 +8,10 @@
 
     <p>
     <div class="btn-group" role="group">
-        {% if perms.change_asset_model %}
+        {% if perms.inventory.change_asset_model %}
             <a class="btn btn-warning btn-sm" type="button" href="{{ object.get_edit_url }}">Edit</a>
         {% endif %}
-        {% if perms.delete_asset_model %}
+        {% if perms.inventory.delete_asset_model %}
             <a class="btn btn-danger btn-sm" type="button" href="{{ object.get_delete_url }}">Delete</a>
         {% endif %}
     </div>
