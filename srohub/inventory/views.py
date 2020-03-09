@@ -121,6 +121,20 @@ class AssetModelUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVi
         return self.object.get_absolute_url()
 
 
+class AssetModelDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+
+    model = AssetModel
+    template_name = "inventory/model_delete.html"
+
+    fields = ["name", "asset_manufacturer", "is_container", "notes"]
+
+    permission_required = "inventory.delete_asset_model"
+    permission_denied_message = "You do not have permission to delete asset models."
+
+    def get_success_url(self):
+        return self.object.asset_manufacturer.get_absolute_url()
+
+
 class AssetManufacturerDisplayView(LoginRequiredMixin, DetailView):
 
     model = AssetManufacturer
