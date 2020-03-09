@@ -98,3 +98,6 @@ class Asset(models.Model):
 
     def get_edit_url(self):
         return reverse("inventory:asset_edit", args=[self.asset_code])
+
+    def get_delete_url(self):
+        return reverse("inventory:asset_delete", args=[self.asset_code])

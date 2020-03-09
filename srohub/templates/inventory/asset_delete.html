@@ -2,11 +2,11 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %}{{ object}}{% endblock %}
+{% block title %}{{ object }}{% endblock %}
 
 {% block inventory_content %}
 
-    <h2>Editing: {{ object }}</h2>
+    <h2>Deleting: {{ object }}</h2>
 
     <p>
     <div class="btn-group" role="group">
@@ -29,9 +29,25 @@
             {{ message }}
         </div>
       {% endfor %}
-      {{ form|crispy }}
+      <p>It is extremely dangerous to delete an Asset.</p>
+      <p>Deletion will result in lost history on other objects.</p>
+      <p><strong>Consider marking this asset as <a href="{{ object.get_edit_url }}">disposed.</a></strong></p>
+
+      {% if object.asset_set.count != 0 %}
+          <p>You must move or delete the following assets and their contents before proceeding</p>
+          <ul>
+              {% for a in object.asset_set.all %}
+                <li>{{ a }}</li>
+              {% endfor %}
+          </ul>
+      {% endif %}
+
       <div class="text-center">
-          <button class="btn btn-success" type="submit">Update</button>
+          {% if object.asset_set.count == 0 %}
+            <button class="btn btn-danger" type="submit">Delete</button>
+          {% else %}
+            <p class="btn btn-danger disabled">Delete</p>
+          {% endif %}
       </div>
     </form>
 {% endblock %}

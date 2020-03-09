@@ -1,4 +1,4 @@
-from django.views.generic import DetailView, ListView, UpdateView
+from django.views.generic import DetailView, ListView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.paginator import Paginator
 from django.db.models import Q
@@ -68,6 +68,22 @@ class AssetUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return self.object.get_absolute_url()
+
+
+class AssetDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+
+    model = Asset
+    template_name = "inventory/asset_delete.html"
+    slug_field = "asset_code"
+    slug_field_kwarg = "asset_code"
+
+    fields = ["name", "asset_model", "condition", "location", "notes"]
+
+    permission_required = "inventory.delete_asset"
+    permission_denied_message = "You do not have permission to delete assets."
+
+    def get_success_url(self):
+        return self.object.location.get_absolute_url()
 
 
 class AssetModelDisplayView(LoginRequiredMixin, DetailView):

@@ -20,6 +20,9 @@
                 <a class="btn btn-success btn-sm" type="button" href="#">Move items here</a>
             {% endif %}
         {% endif %}
+        {% if perms.delete_asset %}
+            <a class="btn btn-danger btn-sm" type="button" href="{{ object.get_delete_url }}">Delete</a>
+        {% endif %}
     </div>
     </p>
 

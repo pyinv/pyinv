@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.InventorySearchView.as_view(), name='index'),
     path('asset/<slug:slug>', views.AssetDisplayView.as_view(), name='asset_view'),
     path('asset/<slug:slug>/edit', views.AssetUpdateView.as_view(), name='asset_edit'),
+    path('asset/<slug:slug>/delete', views.AssetDeleteView.as_view(), name='asset_delete'),
     path('model/<int:pk>', views.AssetModelDisplayView.as_view(), name='model_view'),
     path('manufacturer/<int:pk>', views.AssetManufacturerDisplayView.as_view(), name='manufacturer_view'),
 ]
