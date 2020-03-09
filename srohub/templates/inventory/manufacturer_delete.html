@@ -31,11 +31,11 @@
       <p>It is extremely dangerous to delete a Manufacturer.</p>
       <p>Deletion will result in lost history on other objects.</p>
 
-      {% if object.asset_set.count != 0 %}
+      {% if object.assetmodel_set.count != 0 %}
           <p>You must move or delete the following models, the assets and their contents before proceeding</p>
           <ul>
               {% for a in object.assetmodel_set.all %}
-                <li>{{ a }}</li>
+                  <li><a href="{{ a.get_absolute_url }}">{{ a }}</a></li>
               {% endfor %}
           </ul>
       {% endif %}

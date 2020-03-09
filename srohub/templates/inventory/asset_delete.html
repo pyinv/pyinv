@@ -37,7 +37,7 @@
           <p>You must move or delete the following assets and their contents before proceeding</p>
           <ul>
               {% for a in object.asset_set.all %}
-                <li>{{ a }}</li>
+                <li><a href="{{ a.get_absolute_url }}">{{ a }}</a></li>
               {% endfor %}
           </ul>
       {% endif %}
