@@ -6,7 +6,7 @@ from .models import AssetManufacturer, AssetModel, Asset, ConsumableModel, Consu
 
 
 class AssetAdmin(SimpleHistoryAdmin):
-    raw_id_fields = ["location"]
+    raw_id_fields = ["location", "asset_model"]
     list_display = ["display_name", "asset_code", "asset_model", "condition", "location"]
     list_filter = ["condition"]
     history_list_display = ["condition", "location__name"]
@@ -31,6 +31,7 @@ class ConsumableModelAdmin(SimpleHistoryAdmin):
 
 
 class ConsumableAdmin(SimpleHistoryAdmin):
+    raw_id_fields = ["location", "consumable_model"]
     list_display = ["consumable_model", "quantity", "location"]
     search_fields = ["consumable_model__name", "consumable_model__asset_manufacturer__name", "notes"]
 
