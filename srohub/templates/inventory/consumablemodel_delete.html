@@ -28,20 +28,20 @@
             {{ message }}
         </div>
       {% endfor %}
-      <p>It is extremely dangerous to delete a Manufacturer.</p>
+      <p>It is extremely dangerous to delete a Consumable Model.</p>
       <p>Deletion will result in lost history on other objects.</p>
 
-      {% if object.assetmodel_set.count != 0 %}
-          <p>You must move or delete the following models, the assets and their contents before proceeding</p>
+      {% if object.consumable_set.count != 0 %}
+          <p>You must delete the following consumables before proceeding</p>
           <ul>
-              {% for a in object.assetmodel_set.all %}
+              {% for a in object.consumable_set.all %}
                   <li><a href="{{ a.get_absolute_url }}">{{ a }}</a></li>
               {% endfor %}
           </ul>
       {% endif %}
 
       <div class="text-center">
-          {% if object.assetmodel_set.count == 0 %}
+          {% if object.consumable_set.count == 0 %}
             <button class="btn btn-danger" type="submit">Delete</button>
           {% else %}
             <p class="btn btn-danger disabled">Delete</p>

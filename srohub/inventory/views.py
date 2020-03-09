@@ -207,3 +207,17 @@ class ConsumableModelUpdateView(LoginRequiredMixin, PermissionRequiredMixin, Upd
 
     def get_success_url(self):
         return self.object.get_absolute_url()
+
+
+class ConsumableModelDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+
+    model = ConsumableModel
+    template_name = "inventory/consumablemodel_delete.html"
+
+    fields = ["name", "notes"]
+
+    permission_required = "inventory.delete_consumable_model"
+    permission_denied_message = "You do not have permission to delete consumable models."
+
+    def get_success_url(self):
+        return self.object.asset_manufacturer.get_absolute_url()

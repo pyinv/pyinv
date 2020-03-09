@@ -18,7 +18,7 @@
             <a class="btn btn-warning btn-sm" type="button" href="{{ object.get_edit_url }}">Edit</a>
         {% endif %}
         {% if perms.inventory.delete_consumable_model %}
-            <a class="btn btn-danger btn-sm" type="button" href="#">Delete</a>
+            <a class="btn btn-danger btn-sm" type="button" href="{{ object.get_delete_url }}">Delete</a>
         {% endif %}
     </div>
     </p>
