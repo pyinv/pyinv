@@ -123,3 +123,17 @@ class AssetManufacturerDisplayView(LoginRequiredMixin, DetailView):
         data['page_obj'] = paginator.get_page(page_num)
         data['is_paginated'] = True
         return data
+
+
+class AssetManufacturerUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+
+    model = AssetManufacturer
+    template_name = "inventory/manufacturer_edit.html"
+
+    fields = ["name", "notes"]
+
+    permission_required = "inventory.change_asset_manufacturer"
+    permission_denied_message = "You do not have permission to update manufacturers."
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()

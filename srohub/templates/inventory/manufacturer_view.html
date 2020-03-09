@@ -4,11 +4,12 @@
 
 {% block inventory_content %}
 
-    <h2>Viewing Model: {{ object.name }}</h2>
+    <h2>Viewing Manufacturer: {{ object }}</h2>
 
-    <p>
     <div class="btn-group" role="group">
-        <a class="btn btn-warning btn-sm" type="button" href="#">Edit</a>
+        {% if perms.asset_manufacturer_chance %}
+            <a class="btn btn-warning btn-sm" type="button" href="{{ object.get_edit_url }}">Edit</a>
+        {% endif %}
     </div>
     </p>
 

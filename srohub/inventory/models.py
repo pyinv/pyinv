@@ -20,6 +20,15 @@ class AssetManufacturer(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("inventory:manufacturer_view", args=[self.pk])
+
+    def get_edit_url(self):
+        return reverse("inventory:manufacturer_edit", args=[self.pk])
+
+    def get_delete_url(self):
+        return reverse("inventory:manufacturer_delete", args=[self.pk])
+
 
 class AssetModel(models.Model):
     """The model of an asset."""
@@ -40,6 +49,15 @@ class AssetModel(models.Model):
 
     def __str__(self) -> str:
         return self.display_name
+
+    def get_absolute_url(self):
+        return reverse("inventory:model_view", args=[self.pk])
+
+    def get_edit_url(self):
+        return reverse("inventory:model_edit", args=[self.pk])
+
+    def get_delete_url(self):
+        return reverse("inventory:model_delete", args=[self.pk])
 
 
 def location_validator(val):
