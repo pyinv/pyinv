@@ -7,10 +7,10 @@
     <h2>Viewing Manufacturer: {{ object }}</h2>
 
     <div class="btn-group" role="group">
-        {% if perms.asset_manufacturer_change %}
+        {% if perms.change_asset_manufacturer %}
             <a class="btn btn-warning btn-sm" type="button" href="{{ object.get_edit_url }}">Edit</a>
         {% endif %}
-        {% if perms.asset_manufacturer_delete %}
+        {% if perms.delete_asset_manufacturer %}
             <a class="btn btn-danger btn-sm" type="button" href="{{ object.get_delete_url }}">Delete</a>
         {% endif %}
     </div>
