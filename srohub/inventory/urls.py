@@ -10,6 +10,7 @@ urlpatterns = [
     path('asset/<slug:slug>/edit', views.AssetUpdateView.as_view(), name='asset_edit'),
     path('asset/<slug:slug>/delete', views.AssetDeleteView.as_view(), name='asset_delete'),
     path('consumablemodel/<int:pk>', views.ConsumableModelDisplayView.as_view(), name='consumablemodel_view'),
+    path('consumablemodel/<int:pk>/edit', views.ConsumableModelUpdateView.as_view(), name='consumablemodel_edit'),
     path('model/<int:pk>', views.AssetModelDisplayView.as_view(), name='model_view'),
     path('model/<int:pk>/edit', views.AssetModelUpdateView.as_view(), name='model_edit'),
     path('model/<int:pk>/delete', views.AssetModelDeleteView.as_view(), name='model_delete'),

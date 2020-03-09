@@ -193,3 +193,17 @@ class ConsumableModelDisplayView(LoginRequiredMixin, DetailView):
 
         data['consumables'] = Consumable.objects.filter(consumable_model=self.object).all()
         return data
+
+
+class ConsumableModelUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+
+    model = ConsumableModel
+    template_name = "inventory/consumablemodel_edit.html"
+
+    fields = ["name", "asset_manufacturer", "notes"]
+
+    permission_required = "inventory.change_consumable_model"
+    permission_denied_message = "You do not have permission to update consumable models."
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()

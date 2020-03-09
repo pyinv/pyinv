@@ -14,10 +14,10 @@
                 Back to {{ object.location.display_name }}
             </a>
         {% endif %}
-        {% if perms.inventory.change_consumablemodel %}
-            <a class="btn btn-warning btn-sm" type="button" href="#">Edit</a>
+        {% if perms.inventory.change_consumable_model %}
+            <a class="btn btn-warning btn-sm" type="button" href="{{ object.get_edit_url }}">Edit</a>
         {% endif %}
-        {% if perms.inventory.delete_consumablemodel %}
+        {% if perms.inventory.delete_consumable_model %}
             <a class="btn btn-danger btn-sm" type="button" href="#">Delete</a>
         {% endif %}
     </div>
