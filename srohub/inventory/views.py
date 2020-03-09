@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.urls import reverse
 
-from .models import Asset, AssetModel, AssetManufacturer
+from .models import Asset, AssetModel, AssetManufacturer, Consumable
 
 
 class InventorySearchView(LoginRequiredMixin, ListView):
@@ -52,6 +52,7 @@ class AssetDisplayView(LoginRequiredMixin, DetailView):
         paginator = Paginator(assets, 20)
         data['page_obj'] = paginator.get_page(page_num)
         data['is_paginated'] = self.object.asset_model.is_container
+        data['consumables'] = Consumable.objects.filter(location=self.object).all()
         return data
 
 
