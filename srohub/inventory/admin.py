@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from simple_history.admin import SimpleHistoryAdmin
 
-from .models import AssetManufacturer, AssetModel, Asset
+from .models import AssetManufacturer, AssetModel, Asset, ConsumableModel, Consumable
 
 
 class AssetAdmin(SimpleHistoryAdmin):
@@ -26,6 +26,18 @@ class AssetManufacturerAdmin(SimpleHistoryAdmin):
     search_fields = ["name"]
 
 
+class ConsumableModelAdmin(SimpleHistoryAdmin):
+    list_display = ["name", "asset_manufacturer"]
+    search_fields = ["name", "asset_manufacturer__name", "notes"]
+
+
+class ConsumableAdmin(SimpleHistoryAdmin):
+    list_display = ["consumable_model", "quantity", "location"]
+    search_fields = ["consumable_model__name", "consumable_model__asset_manufacturer__name", "notes"]
+
+
 admin.site.register(Asset, AssetAdmin)
 admin.site.register(AssetModel, AssetModelAdmin)
 admin.site.register(AssetManufacturer, AssetManufacturerAdmin)
+admin.site.register(ConsumableModel, ConsumableModelAdmin)
+admin.site.register(Consumable, ConsumableAdmin)

@@ -101,6 +101,8 @@ class Asset(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    consumable_models = models.ManyToManyField('ConsumableModel', through='Consumable')
+
     @property
     def display_name(self) -> str:
         if self.name is None or len(self.name) == 0:
@@ -119,3 +121,48 @@ class Asset(models.Model):
 
     def get_delete_url(self):
         return reverse("inventory:asset_delete", args=[self.asset_code])
+
+
+class ConsumableModel(models.Model):
+    """The model of a consumable asset."""
+
+    name = models.CharField(max_length=30)
+    asset_manufacturer = models.ForeignKey(AssetManufacturer, on_delete=models.PROTECT)
+    history = HistoricalRecords()
+    notes = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    locations = models.ManyToManyField('Asset', through='Consumable')
+
+    @property
+    def display_name(self) -> str:
+        if self.asset_manufacturer.name == settings.INVENTORY_ORG:
+            return self.name
+        return f"[C] {self.asset_manufacturer.name} {self.name}"
+
+    def __str__(self) -> str:
+        return self.display_name
+
+    def get_absolute_url(self):
+        return reverse("inventory:consumable_view", args=[self.pk])
+
+    def get_edit_url(self):
+        return reverse("inventory:consumable_edit", args=[self.pk])
+
+    def get_delete_url(self):
+        return reverse("inventory:consumable_delete", args=[self.pk])
+
+
+class Consumable(models.Model):
+    """A count of a consumable asset in a location."""
+    location = models.ForeignKey('Asset', on_delete=models.PROTECT)
+    consumable_model = models.ForeignKey('ConsumableModel', on_delete=models.PROTECT)
+    quantity = models.IntegerField(default=0)
+    history = HistoricalRecords()
+    notes = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return f"{self.quantity} × {self.consumable_model.name}"
