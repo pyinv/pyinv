@@ -169,3 +169,6 @@ class Consumable(models.Model):
 
     def __str__(self) -> str:
         return f"{self.quantity} × {self.consumable_model.name}"
+
+    def get_edit_url(self):
+        return reverse("inventory:consumable_edit", args=[self.pk])

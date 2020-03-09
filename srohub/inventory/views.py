@@ -183,6 +183,20 @@ class AssetManufacturerDeleteView(LoginRequiredMixin, PermissionRequiredMixin, D
         return reverse("inventory:index")
 
 
+class ConsumableUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+
+    model = Consumable
+    template_name = "inventory/consumable_edit.html"
+
+    fields = ["consumable_model", "location", "quantity", "notes"]
+
+    permission_required = "inventory.change_consumable"
+    permission_denied_message = "You do not have permission to update consumables."
+
+    def get_success_url(self):
+        return self.object.location.get_absolute_url()
+
+
 class ConsumableModelDisplayView(LoginRequiredMixin, DetailView):
 
     model = ConsumableModel

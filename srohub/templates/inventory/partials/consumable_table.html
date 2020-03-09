@@ -17,7 +17,9 @@
             <td>{{ consumable.updated_at }}</td>
           <td>
               <div class="btn-group" role="group">
-                  <a type="button" class="btn btn-warning btn-sm" href="#">Edit</a>
+                  {% if perms.inventory.change_consumable %}
+                    <a type="button" class="btn btn-warning btn-sm" href="{{ consumable.get_edit_url }}">Edit</a>
+                  {% endif %}
               </div>
           </td>
         </tr>
