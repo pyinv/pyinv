@@ -15,10 +15,10 @@
             </a>
         {% endif %}
         {% if perms.inventory.change_asset %}
-            <a class="btn btn-warning btn-sm" type="button" href="{{ object.get_edit_url }}">Edit</a>
             {% if object.asset_model.is_container %}
-                <a class="btn btn-success btn-sm" type="button" href="#">Move items here</a>
+                <a class="btn btn-success btn-sm disabled" type="button" href="#">Move items here</a>
             {% endif %}
+            <a class="btn btn-warning btn-sm" type="button" href="{{ object.get_edit_url }}">Edit</a>
         {% endif %}
         {% if perms.inventory.delete_asset %}
             <a class="btn btn-danger btn-sm" type="button" href="{{ object.get_delete_url }}">Delete</a>
