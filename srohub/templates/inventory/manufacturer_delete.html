@@ -1,0 +1,51 @@
+{% extends "inventory/partials/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}{{ object }}{% endblock %}
+
+{% block inventory_content %}
+
+    <h2>Editing: {{ object }}</h2>
+
+    <div class="btn-group" role="group">
+        {% if object.location != object %}
+            <a class="btn btn-secondary btn-sm" type="button"
+               href="{{ object.get_absolute_url }}">
+                Back to {{ object }}
+            </a>
+        {% endif %}
+    </div>
+    </p>
+
+    <form method="post">
+      {% csrf_token %}
+      {% for message in messages %}
+        <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ message }}
+        </div>
+      {% endfor %}
+      <p>It is extremely dangerous to delete a Manufacturer.</p>
+      <p>Deletion will result in lost history on other objects.</p>
+
+      {% if object.asset_set.count != 0 %}
+          <p>You must move or delete the following models, the assets and their contents before proceeding</p>
+          <ul>
+              {% for a in object.assetmodel_set.all %}
+                <li>{{ a }}</li>
+              {% endfor %}
+          </ul>
+      {% endif %}
+
+      <div class="text-center">
+          {% if object.assetmodel_set.count == 0 %}
+            <button class="btn btn-danger" type="submit">Delete</button>
+          {% else %}
+            <p class="btn btn-danger disabled">Delete</p>
+          {% endif %}
+      </div>
+    </form>
+{% endblock %}

@@ -2,6 +2,7 @@ from django.views.generic import DetailView, ListView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.urls import reverse
 
 from .models import Asset, AssetModel, AssetManufacturer
 
@@ -137,3 +138,17 @@ class AssetManufacturerUpdateView(LoginRequiredMixin, PermissionRequiredMixin, U
 
     def get_success_url(self):
         return self.object.get_absolute_url()
+
+
+class AssetManufacturerDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+
+    model = AssetManufacturer
+    template_name = "inventory/manufacturer_delete.html"
+
+    fields = ["name", "notes"]
+
+    permission_required = "inventory.delete_asset_manufacturer"
+    permission_denied_message = "You do not have permission to delete manufacturers."
+
+    def get_success_url(self):
+        return reverse("inventory:index")
