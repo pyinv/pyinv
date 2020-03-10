@@ -1,6 +1,5 @@
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.conf import settings
 from django.urls import reverse
 
 from simple_history.models import HistoricalRecords
@@ -43,7 +42,7 @@ class AssetModel(models.Model):
 
     @property
     def display_name(self) -> str:
-        if self.asset_manufacturer.name == settings.INVENTORY_ORG:
+        if self.asset_manufacturer.name == "Inventory":
             return self.name
         return f"{self.asset_manufacturer.name} {self.name}"
 
@@ -137,7 +136,7 @@ class ConsumableModel(models.Model):
 
     @property
     def display_name(self) -> str:
-        if self.asset_manufacturer.name == settings.INVENTORY_ORG:
+        if self.asset_manufacturer.name == "Inventory":
             return self.name
         return f"[C] {self.asset_manufacturer.name} {self.name}"
 
