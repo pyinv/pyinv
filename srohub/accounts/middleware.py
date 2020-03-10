@@ -14,5 +14,6 @@ class ProfileRequiredMiddleware(MiddlewareMixin):
                      or not request.user.last_name \
                      or not request.user.email) \
                 and not request.path.startswith(reverse('accounts:profile')):
+            request.session["onboarding"] = True
             return HttpResponseRedirect(reverse("accounts:profile"))
         return None

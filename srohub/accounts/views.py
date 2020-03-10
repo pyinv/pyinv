@@ -1,7 +1,8 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.http.response import HttpResponseRedirect
+from django.urls import reverse_lazy, reverse
 from django.views import generic
 
 
@@ -21,3 +22,10 @@ class Profile(LoginRequiredMixin, generic.UpdateView):
     def get_object(self, queryset=None):
         return self.request.user
 
+    def form_valid(self, form):
+        """If the form is valid, save the associated model."""
+        if "onboarding" in self.request.session:
+            self.request.session.pop("onboarding")
+            self.success_url = reverse("dashboard:index")
+
+        return super().form_valid(form)
