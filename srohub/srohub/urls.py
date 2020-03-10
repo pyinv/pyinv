@@ -21,9 +21,9 @@ admin.site.site_header = "SROHub Admin"
 admin.site.index_title = "SROHub Admin"
 
 urlpatterns = [
-    path('', include('dashboard.urls', namespace="dashboard")),
-    path('accounts/', include('accounts.urls', namespace="accounts")),
-    path('admin/', admin.site.urls),
-    path('auth/', include('django.contrib.auth.urls')),
-    path('inventory/', include('inventory.urls', namespace="inventory")),
+    path("", include("dashboard.urls", namespace="dashboard")),
+    path("accounts/", include("accounts.urls", namespace="accounts")),
+    path("admin/", admin.site.urls),
+    path("auth/", include("django.contrib.auth.urls")),
+    path("inventory/", include("inventory.urls", namespace="inventory")),
 ]

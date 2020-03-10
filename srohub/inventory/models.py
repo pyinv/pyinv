@@ -1,10 +1,9 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
-
 from simple_history.models import HistoricalRecords
 
-from .asset_code import validate_asset_code, generate_asset_code
+from .asset_code import generate_asset_code, validate_asset_code
 
 
 class AssetManufacturer(models.Model):
@@ -74,12 +73,13 @@ class Asset(models.Model):
 
     class Condition(models.TextChoices):
         """The condition of an item."""
-        UNKNOWN = 'U'
-        BROKEN = 'B'
-        DISPOSED = 'D'
-        NEEDS_ASSEMBLY = 'A'
-        NEEDS_REPAIR = 'R'
-        WORKING = 'W'
+
+        UNKNOWN = "U"
+        BROKEN = "B"
+        DISPOSED = "D"
+        NEEDS_ASSEMBLY = "A"
+        NEEDS_REPAIR = "R"
+        WORKING = "W"
 
     asset_code = models.CharField(
         max_length=11,
@@ -88,19 +88,22 @@ class Asset(models.Model):
         default=generate_asset_code,
     )
     name = models.CharField(max_length=30, null=True, blank=True)
-    location = models.ForeignKey('Asset', on_delete=models.PROTECT, validators=[location_validator], limit_choices_to={'asset_model__is_container': True})
+    location = models.ForeignKey(
+        "Asset",
+        on_delete=models.PROTECT,
+        validators=[location_validator],
+        limit_choices_to={"asset_model__is_container": True},
+    )
     asset_model = models.ForeignKey(AssetModel, on_delete=models.PROTECT)
     condition = models.CharField(
-        max_length=2,
-        choices=Condition.choices,
-        default=Condition.UNKNOWN,
+        max_length=2, choices=Condition.choices, default=Condition.UNKNOWN,
     )
     history = HistoricalRecords()
     notes = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    consumable_models = models.ManyToManyField('ConsumableModel', through='Consumable')
+    consumable_models = models.ManyToManyField("ConsumableModel", through="Consumable")
 
     @property
     def display_name(self) -> str:
@@ -132,7 +135,7 @@ class ConsumableModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    locations = models.ManyToManyField('Asset', through='Consumable')
+    locations = models.ManyToManyField("Asset", through="Consumable")
 
     @property
     def display_name(self) -> str:
@@ -144,7 +147,9 @@ class ConsumableModel(models.Model):
         return self.display_name
 
     def get_total(self) -> int:
-        return self.consumable_set.aggregate(quantity=models.Sum('quantity')).get('quantity')
+        return self.consumable_set.aggregate(quantity=models.Sum("quantity")).get(
+            "quantity"
+        )
 
     def get_absolute_url(self):
         return reverse("inventory:consumablemodel_view", args=[self.pk])
@@ -158,8 +163,13 @@ class ConsumableModel(models.Model):
 
 class Consumable(models.Model):
     """A count of a consumable asset in a location."""
-    location = models.ForeignKey('Asset', on_delete=models.PROTECT, limit_choices_to={'asset_model__is_container': True})
-    consumable_model = models.ForeignKey('ConsumableModel', on_delete=models.PROTECT)
+
+    location = models.ForeignKey(
+        "Asset",
+        on_delete=models.PROTECT,
+        limit_choices_to={"asset_model__is_container": True},
+    )
+    consumable_model = models.ForeignKey("ConsumableModel", on_delete=models.PROTECT)
     quantity = models.IntegerField(default=0)
     history = HistoricalRecords()
     notes = models.TextField(blank=True)

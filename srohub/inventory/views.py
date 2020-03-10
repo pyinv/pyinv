@@ -1,10 +1,19 @@
-from django.views.generic import DetailView, ListView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+)
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.urls import reverse
+from django.views.generic import DeleteView, DetailView, ListView, UpdateView
 
-from .models import Asset, AssetModel, AssetManufacturer, Consumable, ConsumableModel
+from .models import (
+    Asset,
+    AssetManufacturer,
+    AssetModel,
+    Consumable,
+    ConsumableModel,
+)
 
 
 class InventorySearchView(LoginRequiredMixin, ListView):
@@ -15,19 +24,23 @@ class InventorySearchView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         data = super().get_context_data(object_list=object_list, **kwargs)
-        if 'query' in self.request.GET:
-            data['query'] = self.request.GET['query']
+        if "query" in self.request.GET:
+            data["query"] = self.request.GET["query"]
         return data
 
     def get_queryset(self):
-        if 'query' in self.request.GET:
+        if "query" in self.request.GET:
             return Asset.objects.filter(
-                Q(name__icontains=self.request.GET['query']) |
-                Q(notes__icontains=self.request.GET['query']) |
-                Q(asset_code__icontains=self.request.GET['query']) |
-                Q(asset_model__name__icontains=self.request.GET['query']) |
-                Q(asset_model__asset_manufacturer__name__icontains=self.request.GET['query']),
-                ~Q(condition="D")  # Ignore disposed assets.
+                Q(name__icontains=self.request.GET["query"])
+                | Q(notes__icontains=self.request.GET["query"])
+                | Q(asset_code__icontains=self.request.GET["query"])
+                | Q(asset_model__name__icontains=self.request.GET["query"])
+                | Q(
+                    asset_model__asset_manufacturer__name__icontains=self.request.GET[
+                        "query"
+                    ]
+                ),
+                ~Q(condition="D"),  # Ignore disposed assets.
             ).order_by("-updated_at")
         else:
             return Asset.objects.all()
@@ -43,16 +56,18 @@ class AssetDisplayView(LoginRequiredMixin, DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         data = super().get_context_data(object_list=object_list, **kwargs)
 
-        if 'page' in self.request.GET:
-            page_num = self.request.GET['page']
+        if "page" in self.request.GET:
+            page_num = self.request.GET["page"]
         else:
             page_num = 1
 
-        assets = self.object.asset_set.filter(~Q(asset_code=self.object.asset_code)).order_by("-updated_at")
+        assets = self.object.asset_set.filter(
+            ~Q(asset_code=self.object.asset_code)
+        ).order_by("-updated_at")
         paginator = Paginator(assets, 20)
-        data['page_obj'] = paginator.get_page(page_num)
-        data['is_paginated'] = self.object.asset_model.is_container
-        data['consumables'] = Consumable.objects.filter(location=self.object).all()
+        data["page_obj"] = paginator.get_page(page_num)
+        data["is_paginated"] = self.object.asset_model.is_container
+        data["consumables"] = Consumable.objects.filter(location=self.object).all()
         return data
 
 
@@ -96,15 +111,15 @@ class AssetModelDisplayView(LoginRequiredMixin, DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         data = super().get_context_data(object_list=object_list, **kwargs)
 
-        if 'page' in self.request.GET:
-            page_num = self.request.GET['page']
+        if "page" in self.request.GET:
+            page_num = self.request.GET["page"]
         else:
             page_num = 1
 
         assets = self.object.asset_set.order_by("-updated_at").all()
         paginator = Paginator(assets, 20)
-        data['page_obj'] = paginator.get_page(page_num)
-        data['is_paginated'] = True
+        data["page_obj"] = paginator.get_page(page_num)
+        data["is_paginated"] = True
         return data
 
 
@@ -144,18 +159,20 @@ class AssetManufacturerDisplayView(LoginRequiredMixin, DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         data = super().get_context_data(object_list=object_list, **kwargs)
 
-        if 'page' in self.request.GET:
-            page_num = self.request.GET['page']
+        if "page" in self.request.GET:
+            page_num = self.request.GET["page"]
         else:
             page_num = 1
         assets = self.object.assetmodel_set.order_by("-updated_at").all()
         paginator = Paginator(assets, 20)
-        data['page_obj'] = paginator.get_page(page_num)
-        data['is_paginated'] = True
+        data["page_obj"] = paginator.get_page(page_num)
+        data["is_paginated"] = True
         return data
 
 
-class AssetManufacturerUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class AssetManufacturerUpdateView(
+    LoginRequiredMixin, PermissionRequiredMixin, UpdateView
+):
 
     model = AssetManufacturer
     template_name = "inventory/manufacturer_edit.html"
@@ -169,7 +186,9 @@ class AssetManufacturerUpdateView(LoginRequiredMixin, PermissionRequiredMixin, U
         return self.object.get_absolute_url()
 
 
-class AssetManufacturerDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+class AssetManufacturerDeleteView(
+    LoginRequiredMixin, PermissionRequiredMixin, DeleteView
+):
 
     model = AssetManufacturer
     template_name = "inventory/manufacturer_delete.html"
@@ -205,11 +224,15 @@ class ConsumableModelDisplayView(LoginRequiredMixin, DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         data = super().get_context_data(object_list=object_list, **kwargs)
 
-        data['consumables'] = Consumable.objects.filter(consumable_model=self.object).all()
+        data["consumables"] = Consumable.objects.filter(
+            consumable_model=self.object
+        ).all()
         return data
 
 
-class ConsumableModelUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class ConsumableModelUpdateView(
+    LoginRequiredMixin, PermissionRequiredMixin, UpdateView
+):
 
     model = ConsumableModel
     template_name = "inventory/consumablemodel_edit.html"
@@ -217,13 +240,17 @@ class ConsumableModelUpdateView(LoginRequiredMixin, PermissionRequiredMixin, Upd
     fields = ["name", "asset_manufacturer", "notes"]
 
     permission_required = "inventory.change_consumable_model"
-    permission_denied_message = "You do not have permission to update consumable models."
+    permission_denied_message = (
+        "You do not have permission to update consumable models."
+    )
 
     def get_success_url(self):
         return self.object.get_absolute_url()
 
 
-class ConsumableModelDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+class ConsumableModelDeleteView(
+    LoginRequiredMixin, PermissionRequiredMixin, DeleteView
+):
 
     model = ConsumableModel
     template_name = "inventory/consumablemodel_delete.html"
@@ -231,7 +258,9 @@ class ConsumableModelDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Del
     fields = ["name", "notes"]
 
     permission_required = "inventory.delete_consumable_model"
-    permission_denied_message = "You do not have permission to delete consumable models."
+    permission_denied_message = (
+        "You do not have permission to delete consumable models."
+    )
 
     def get_success_url(self):
         return self.object.asset_manufacturer.get_absolute_url()

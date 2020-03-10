@@ -1,16 +1,33 @@
 from django.contrib import admin
-
 from simple_history.admin import SimpleHistoryAdmin
 
-from .models import AssetManufacturer, AssetModel, Asset, ConsumableModel, Consumable
+from .models import (
+    Asset,
+    AssetManufacturer,
+    AssetModel,
+    Consumable,
+    ConsumableModel,
+)
 
 
 class AssetAdmin(SimpleHistoryAdmin):
     raw_id_fields = ["location", "asset_model"]
-    list_display = ["display_name", "asset_code", "asset_model", "condition", "location"]
+    list_display = [
+        "display_name",
+        "asset_code",
+        "asset_model",
+        "condition",
+        "location",
+    ]
     list_filter = ["condition"]
     history_list_display = ["condition", "location__name"]
-    search_fields = ['asset_code', 'name', 'notes', "asset_model__name", "asset_model__asset_manufacturer__name"]
+    search_fields = [
+        "asset_code",
+        "name",
+        "notes",
+        "asset_model__name",
+        "asset_model__asset_manufacturer__name",
+    ]
 
 
 class AssetModelAdmin(SimpleHistoryAdmin):
@@ -33,7 +50,11 @@ class ConsumableModelAdmin(SimpleHistoryAdmin):
 class ConsumableAdmin(SimpleHistoryAdmin):
     raw_id_fields = ["location", "consumable_model"]
     list_display = ["consumable_model", "quantity", "location"]
-    search_fields = ["consumable_model__name", "consumable_model__asset_manufacturer__name", "notes"]
+    search_fields = [
+        "consumable_model__name",
+        "consumable_model__asset_manufacturer__name",
+        "notes",
+    ]
 
 
 admin.site.register(Asset, AssetAdmin)
