@@ -89,7 +89,7 @@ class Asset(models.Model):
         default=generate_asset_code,
     )
     name = models.CharField(max_length=30, null=True, blank=True)
-    location = models.ForeignKey('Asset', on_delete=models.PROTECT, validators=[location_validator])
+    location = models.ForeignKey('Asset', on_delete=models.PROTECT, validators=[location_validator], limit_choices_to={'asset_model__is_container': True})
     asset_model = models.ForeignKey(AssetModel, on_delete=models.PROTECT)
     condition = models.CharField(
         max_length=2,
@@ -159,7 +159,7 @@ class ConsumableModel(models.Model):
 
 class Consumable(models.Model):
     """A count of a consumable asset in a location."""
-    location = models.ForeignKey('Asset', on_delete=models.PROTECT)
+    location = models.ForeignKey('Asset', on_delete=models.PROTECT, limit_choices_to={'asset_model__is_container': True})
     consumable_model = models.ForeignKey('ConsumableModel', on_delete=models.PROTECT)
     quantity = models.IntegerField(default=0)
     history = HistoricalRecords()
