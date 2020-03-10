@@ -117,17 +117,6 @@ test = ["coverage", "coveralls", "mock", "pytest", "pytest-cov"]
 
 [[package]]
 category = "dev"
-description = "Flake8 lint for trailing commas."
-name = "flake8-commas"
-optional = false
-python-versions = "*"
-version = "2.0.0"
-
-[package.dependencies]
-flake8 = ">=2,<4.0.0"
-
-[[package]]
-category = "dev"
 description = "A flake8 plugin to help you write better list/set/dict comprehensions."
 name = "flake8-comprehensions"
 optional = false
@@ -342,7 +331,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "32e4874002fd7b05cfa45e63bc51f53c1e103a6bfe30655ed703a93150253bf6"
+content-hash = "65314fabd6fc35c68378f7b04444e4b7be3c938205f393e48164931fcc814a95"
 python-versions = "^3.6"
 
 [metadata.files]
@@ -385,10 +374,6 @@ flake8-bugbear = [
 flake8-builtins = [
     {file = "flake8-builtins-1.4.2.tar.gz", hash = "sha256:c44415fb19162ef3737056e700d5b99d48c3612a533943b4e16419a5d3de3a64"},
     {file = "flake8_builtins-1.4.2-py2.py3-none-any.whl", hash = "sha256:29bc0f7e68af481d088f5c96f8aeb02520abdfc900500484e3af969f42a38a5f"},
-]
-flake8-commas = [
-    {file = "flake8-commas-2.0.0.tar.gz", hash = "sha256:d3005899466f51380387df7151fb59afec666a0f4f4a2c6a8995b975de0f44b7"},
-    {file = "flake8_commas-2.0.0-py2.py3-none-any.whl", hash = "sha256:ee2141a3495ef9789a3894ed8802d03eff1eaaf98ce6d8653a7c573ef101935e"},
 ]
 flake8-comprehensions = [
     {file = "flake8-comprehensions-3.2.2.tar.gz", hash = "sha256:e7db586bb6eb95afdfd87ed244c90e57ae1352db8ef0ad3012fca0200421e5df"},

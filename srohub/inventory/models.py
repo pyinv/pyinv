@@ -61,7 +61,7 @@ class AssetModel(models.Model):
 def location_validator(val):
     try:
         asset = Asset.objects.filter(pk=val).get()
-    except:
+    except Exception:
         raise ValidationError("Not a valid asset.")
 
     if not asset.asset_model.is_container:

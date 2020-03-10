@@ -13,5 +13,8 @@ ignore =
     D107
     #Don't require imperative mood docstrings.
     D401
+    # Allow linebreaks before / after binary operators
+    W503
+    W504
 
 max_line_length = 90
