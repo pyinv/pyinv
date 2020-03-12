@@ -43,7 +43,7 @@ class InventorySearchView(LoginRequiredMixin, ListView):
                 ~Q(condition="D"),  # Ignore disposed assets.
             ).order_by("-updated_at")
         else:
-            return Asset.objects.all()
+            return Asset.objects.order_by("-updated_at").all()
 
 
 class AssetDisplayView(LoginRequiredMixin, DetailView):
@@ -67,7 +67,9 @@ class AssetDisplayView(LoginRequiredMixin, DetailView):
         paginator = Paginator(assets, 20)
         data["page_obj"] = paginator.get_page(page_num)
         data["is_paginated"] = self.object.asset_model.is_container
-        data["consumables"] = Consumable.objects.filter(location=self.object).all()
+        data["consumables"] = Consumable.objects.filter(
+            location=self.object,
+        ).order_by("-updated_at").all()
         return data
 
 
@@ -226,7 +228,7 @@ class ConsumableModelDisplayView(LoginRequiredMixin, DetailView):
 
         data["consumables"] = Consumable.objects.filter(
             consumable_model=self.object
-        ).all()
+        ).order_by("-updated_at").all()
         return data
 
 
