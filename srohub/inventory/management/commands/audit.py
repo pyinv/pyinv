@@ -4,7 +4,7 @@ from inventory.models import Asset
 
 class Command(BaseCommand):
 
-    help = "Audit the contents of an asset."
+    help = "Audit the contents of an asset."  # noqa: A003
 
     def handle(self, *args, **options):
         asset_code = input("Scan asset code: ")
@@ -46,6 +46,10 @@ class Command(BaseCommand):
             lost.save()
 
         for new in new_assets:
-            print(self.style.WARNING(f"Found {new}, expected to find in {new.location}, moving to {asset}"))
+            print(
+                self.style.WARNING(
+                    f"Found {new}, expected to find in {new.location}, moving to {asset}",
+                ),
+            )
             new.location = asset
             new.save()

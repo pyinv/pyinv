@@ -174,19 +174,6 @@ flake8 = "*"
 
 [[package]]
 category = "dev"
-description = "print statement checker plugin for flake8"
-name = "flake8-print"
-optional = false
-python-versions = "*"
-version = "3.1.4"
-
-[package.dependencies]
-flake8 = ">=1.5"
-pycodestyle = "*"
-six = "*"
-
-[[package]]
-category = "dev"
 description = "TODO notes checker, plugin for flake8"
 name = "flake8-todo"
 optional = false
@@ -331,7 +318,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "65314fabd6fc35c68378f7b04444e4b7be3c938205f393e48164931fcc814a95"
+content-hash = "23cc195412c2b1e3ff0846840a675cf8b8181bcdaf497c74d7fc9943cae59e98"
 python-versions = "^3.6"
 
 [metadata.files]
@@ -389,9 +376,6 @@ flake8-isort = [
 flake8-mutable = [
     {file = "flake8-mutable-1.2.0.tar.gz", hash = "sha256:ee9b77111b867d845177bbc289d87d541445ffcc6029a0c5c65865b42b18c6a6"},
     {file = "flake8_mutable-1.2.0-py2-none-any.whl", hash = "sha256:38fd9dadcbcda6550a916197bc40ed76908119dabb37fbcca30873666c31d2d5"},
-]
-flake8-print = [
-    {file = "flake8-print-3.1.4.tar.gz", hash = "sha256:324f9e59a522518daa2461bacd7f82da3c34eb26a4314c2a54bd493f8b394a68"},
 ]
 flake8-todo = [
     {file = "flake8-todo-0.7.tar.gz", hash = "sha256:6e4c5491ff838c06fe5a771b0e95ee15fc005ca57196011011280fc834a85915"},
