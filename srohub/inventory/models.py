@@ -102,6 +102,7 @@ class Asset(models.Model):
     notes = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    audited_at = models.DateTimeField()
 
     consumable_models = models.ManyToManyField("ConsumableModel", through="Consumable")
 
