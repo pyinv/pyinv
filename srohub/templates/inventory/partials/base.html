@@ -18,7 +18,7 @@
 {%  if is_paginated %}
 
     <nav>
-      <ul class="pagination text-center">
+      <ul class="pagination justify-content-center">
         {% if page_obj.has_previous %}
             <li class="page-item">
               <a class="page-link" href="?page={{ page_obj.previous_page_number }}&query={{ query }}" tabindex="-1">Previous</a>
