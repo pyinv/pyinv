@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
+from django.utils import timezone
 from inventory.models import Asset
 
 
@@ -53,3 +54,8 @@ class Command(BaseCommand):
             )
             new.location = asset
             new.save()
+
+        asset.audited_at = timezone.now()
+        asset.save()
+
+        print(self.style.SUCCESS(f"Marked {asset} as audited."))
