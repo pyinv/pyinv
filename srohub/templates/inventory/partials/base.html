@@ -29,10 +29,14 @@
             </li>
         {% endif %}
         {% for p in page_obj.paginator.page_range %}
-            {% if p == page_obj.number %}
-                <li class="page-item active"><span class="page-link" >{{ p }}</span></li>
-            {% else %}
-                <li class="page-item"><a class="page-link" href="?page={{ p }}&query={{ query }}">{{ p }}</a></li>
+            {% if p < 10  %}
+                {% if p == page_obj.number %}
+                    <li class="page-item active"><span class="page-link" >{{ p }}</span></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ p }}&query={{ query }}">{{ p }}</a></li>
+                {% endif %}
+            {% elif p == 11 %}
+                <li class="page-item disabled"><span class="page-link" >...</span></li>
             {% endif %}
         {% endfor %}
         {% if page_obj.has_next %}
