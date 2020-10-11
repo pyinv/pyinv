@@ -4,6 +4,7 @@ from re import compile
 import damm32
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from dynamic_preferences.registries import global_preferences_registry
 
 d32 = damm32.Damm32()
 
@@ -13,12 +14,14 @@ ASSET_CODE_REGEX = compile("^([A-Za-z0-9]{3})-([A-Za-z0-9]{3})-([A-Za-z0-9]{3})$
 def validate_asset_code(value: str) -> None:
     """Validate an asset code."""
     match = ASSET_CODE_REGEX.match(value)
+    global_preferences = global_preferences_registry.manager()
+    org = global_preferences["inventory_org"]
 
     if match:
         groups = match.groups()
-        if groups[0] != settings.INVENTORY_ORG:
+        if groups[0] != org:
             raise ValidationError(
-                f"Invalid inventory org, expected {settings.INVENTORY_ORG}"
+                f"Invalid inventory org, expected {org}"
             )
 
         e = "".join(groups)
@@ -31,8 +34,8 @@ def validate_asset_code(value: str) -> None:
 
 
 def generate_asset_code() -> str:
-
-    code = settings.INVENTORY_ORG
+    global_preferences = global_preferences_registry.manager()
+    code = global_preferences["inventory_org"]
 
     for _ in range(5):
         code += choice(damm32.Damm32.ALPHABET)
