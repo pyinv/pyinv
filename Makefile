@@ -22,7 +22,7 @@ test-ci:
 	$(CMD) pytest --cov=$(PYMODULE) $(TESTS) --cov-report xml
 
 isort:
-	$(CMD) isort --recursive $(PYMODULE) $(TESTS)
+	$(CMD) isort $(PYMODULE) $(TESTS)
 
 clean:
 	git clean -Xdf # Delete all files in .gitignore
