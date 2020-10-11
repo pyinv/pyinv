@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # First Party
     "accounts",
-    "dashboard",
     "inventory",
     # Third Party
     "crispy_forms",

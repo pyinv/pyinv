@@ -21,9 +21,8 @@ admin.site.site_header = "PyInv Admin"
 admin.site.index_title = "PyInv Admin"
 
 urlpatterns = [
-    path("", include("dashboard.urls", namespace="dashboard")),
+    path("", include("inventory.urls", namespace="inventory")),
     path("accounts/", include("accounts.urls", namespace="accounts")),
     path("admin/", admin.site.urls),
     path("auth/", include("django.contrib.auth.urls")),
-    path("inventory/", include("inventory.urls", namespace="inventory")),
 ]

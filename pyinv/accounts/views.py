@@ -25,6 +25,6 @@ class Profile(LoginRequiredMixin, generic.UpdateView):
         """If the form is valid, save the associated model."""
         if "onboarding" in self.request.session:
             self.request.session.pop("onboarding")
-            self.success_url = reverse("dashboard:index")
+            self.success_url = reverse("inventory:index")
 
         return super().form_valid(form)

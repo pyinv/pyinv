@@ -1,5 +1,6 @@
 """Accounts middlware."""
 
+from django.contrib import messages
 from django.http.response import HttpResponseRedirect
 from django.middleware.common import MiddlewareMixin
 from django.shortcuts import reverse
@@ -19,5 +20,6 @@ class ProfileRequiredMiddleware(MiddlewareMixin):
             and not request.path.startswith(reverse("accounts:profile"))
         ):
             request.session["onboarding"] = True
+            messages.info(request, "Please fill out your profile to continue.")
             return HttpResponseRedirect(reverse("accounts:profile"))
         return None
