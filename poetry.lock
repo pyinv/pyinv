@@ -57,6 +57,19 @@ optional = false
 python-versions = ">=3.5"
 
 [[package]]
+name = "django-dynamic-preferences"
+version = "1.10.1"
+description = "Dynamic global and instance settings for your django project"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+django = ">=1.11"
+persisting-theory = ">=0.2.1"
+six = "*"
+
+[[package]]
 name = "django-simple-history"
 version = "2.11.0"
 description = "Store model history and view/revert changes from admin site."
@@ -230,6 +243,14 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "persisting-theory"
+version = "0.2.1"
+description = "Registries that can autodiscover values accross your project apps"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "pycodestyle"
 version = "2.6.0"
 description = "Python style guide checker"
@@ -298,7 +319,7 @@ testing = ["pytest (>=3.5,<3.7.3 || >3.7.3)", "pytest-checkdocs (>=1.2.3)", "pyt
 [metadata]
 lock-version = "1.0"
 python-versions = "^3.6"
-content-hash = "61e63bf770eb0af002a3f7ebe8831787d5ae692f7493c2b43c980696e67a14bb"
+content-hash = "1f3b8fdb20cbcfa62c149fef9e899d6d0f336ec631ee2e761c7d1fcf97495907"
 
 [metadata.files]
 asgiref = [
@@ -320,6 +341,10 @@ django = [
 django-crispy-forms = [
     {file = "django-crispy-forms-1.9.2.tar.gz", hash = "sha256:f2f1e0fbb458851636447cfb6be1a611b40c8ac9e41a74ba923011378670b43b"},
     {file = "django_crispy_forms-1.9.2-py3-none-any.whl", hash = "sha256:888bb316db89b60050a42ec35080facb361d823eec38010ccb0702f45642d3b8"},
+]
+django-dynamic-preferences = [
+    {file = "django-dynamic-preferences-1.10.1.tar.gz", hash = "sha256:e4b2bb7b2563c5064ba56dd76441c77e06b850ff1466a386a1cd308909a6c7de"},
+    {file = "django_dynamic_preferences-1.10.1-py2.py3-none-any.whl", hash = "sha256:9419fa925fd2cbb665269ae72059eb3058bf080913d853419b827e4e7a141902"},
 ]
 django-simple-history = [
     {file = "django-simple-history-2.11.0.tar.gz", hash = "sha256:d147d441165b802082647c86ca14776fe3574986053bbba90a9eaee1b315b826"},
@@ -370,6 +395,9 @@ isort = [
 mccabe = [
     {file = "mccabe-0.6.1-py2.py3-none-any.whl", hash = "sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42"},
     {file = "mccabe-0.6.1.tar.gz", hash = "sha256:dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f"},
+]
+persisting-theory = [
+    {file = "persisting-theory-0.2.1.tar.gz", hash = "sha256:00ff7dcc8f481ff75c770ca5797d968e8725b6df1f77fe0cf7d20fa1e5790c0a"},
 ]
 pycodestyle = [
     {file = "pycodestyle-2.6.0-py2.py3-none-any.whl", hash = "sha256:2295e7b2f6b5bd100585ebcb1f616591b652db8a741695b3d8f5d28bdc934367"},
