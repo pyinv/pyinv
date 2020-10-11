@@ -1,7 +1,7 @@
 .PHONY: all clean lint type test test-cov
 
 CMD:=poetry run
-PYMODULE:=srohub
+PYMODULE:=pyinv
 TESTS:=
 
 all: lint 

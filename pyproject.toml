@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "srohub"
+name = "pyinv"
 version = "0.1.0"
 description = ""
 authors = ["Dan Trickey <dan@trickey.io>"]
