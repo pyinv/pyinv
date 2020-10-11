@@ -1,6 +1,6 @@
-# SRO Hub
+# PyInv 
 
-The online portal for SRO web services.
+Online Inventory and Asset management system
 
 This project uses the Django web framework.
 
@@ -30,7 +30,3 @@ The inventory manages the SRO inventory.
 ## Deployment
 
 The [Django deployment guidelines](https://docs.djangoproject.com/en/3.0/howto/deployment/) are and should be used.
-
-This project is currently deployed on a VM owned by a society member, this will need to be migrated.
-
-A SQLite database is currently used.
