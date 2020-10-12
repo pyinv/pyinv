@@ -83,12 +83,15 @@ class AssetDisplayView(LoginRequiredMixin, DetailView):
         ).order_by("-updated_at").all()
         return data
 
-class AssetCreateView(LoginRequiredMixin, CreateView):
+class AssetCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
     model = Asset
     template_name = "inventory/asset_create.html"
     fields = ["asset_code", "name", "location", "asset_model", "condition", "notes", "audited_at"]
     initial = {"audited_at": datetime.now()}
+
+    permission_required = "inventory.add_asset"
+    permission_denied_message = "You do not have permission to create assets."
 
     def get_form(self, form_class=None):
         form = super(AssetCreateView, self).get_form(form_class)
@@ -150,7 +153,7 @@ class AssetModelDisplayView(LoginRequiredMixin, DetailView):
         return data
 
 
-class AssetModelCreateView(LoginRequiredMixin, CreateView):
+class AssetModelCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
     model = AssetModel
     template_name = "inventory/model_create.html"
