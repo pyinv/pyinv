@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 
@@ -27,4 +28,5 @@ class Profile(LoginRequiredMixin, generic.UpdateView):
             self.request.session.pop("onboarding")
             self.success_url = reverse("inventory:index")
 
+        messages.success(self.request, "Your profile has been successfully updated")
         return super().form_valid(form)

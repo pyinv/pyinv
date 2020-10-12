@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import (
 )
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import DeleteView, DetailView, ListView, UpdateView
 
@@ -22,6 +23,13 @@ class InventorySearchView(LoginRequiredMixin, ListView):
     template_name = "inventory/search.html"
     paginate_by = 15
 
+    def get(self, request, *args, **kwargs):
+        """If there is exactly one result, redirect us to it."""
+        response = super().get(request, *args, **kwargs)
+        if self.object_list.count() == 1:
+            return redirect("inventory:asset_view", slug=self.object_list.get().asset_code)
+        return response
+
     def get_context_data(self, *, object_list=None, **kwargs):
         data = super().get_context_data(object_list=object_list, **kwargs)
         if "query" in self.request.GET:
@@ -29,7 +37,7 @@ class InventorySearchView(LoginRequiredMixin, ListView):
         return data
 
     def get_queryset(self):
-        if "query" in self.request.GET:
+        if "query" in self.request.GET and self.request.GET["query"] != "":
             return Asset.objects.filter(
                 Q(name__icontains=self.request.GET["query"])
                 | Q(notes__icontains=self.request.GET["query"])
