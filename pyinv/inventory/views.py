@@ -150,6 +150,19 @@ class AssetModelDisplayView(LoginRequiredMixin, DetailView):
         return data
 
 
+class AssetModelCreateView(LoginRequiredMixin, CreateView):
+
+    model = AssetModel
+    template_name = "inventory/model_create.html"
+    fields = ["name", "asset_manufacturer", "is_container", "notes"]
+    
+    permission_required = "inventory.add_asset_model"
+    permission_denied_message = "You do not have permission to create asset models."
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()
+
+
 class AssetModelUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
     model = AssetModel

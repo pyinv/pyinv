@@ -33,6 +33,7 @@ urlpatterns = [
         name="consumable_edit",
     ),
     path("model/<int:pk>", views.AssetModelDisplayView.as_view(), name="model_view"),
+    path("model/create", views.AssetModelCreateView.as_view(), name="model_create"),
     path(
         "model/<int:pk>/edit", views.AssetModelUpdateView.as_view(), name="model_edit"
     ),
