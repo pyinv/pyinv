@@ -1,12 +1,15 @@
+from datetime import datetime
+
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
 )
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.forms import HiddenInput
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.views.generic import DeleteView, DetailView, ListView, UpdateView
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from .models import (
     Asset,
@@ -80,6 +83,20 @@ class AssetDisplayView(LoginRequiredMixin, DetailView):
         ).order_by("-updated_at").all()
         return data
 
+class AssetCreateView(LoginRequiredMixin, CreateView):
+
+    model = Asset
+    template_name = "inventory/asset_create.html"
+    fields = ["asset_code", "name", "location", "asset_model", "condition", "notes", "audited_at"]
+    initial = {"audited_at": datetime.now()}
+
+    def get_form(self, form_class=None):
+        form = super(AssetCreateView, self).get_form(form_class)
+        form.fields['audited_at'].widget = HiddenInput()
+        return form
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()
 
 class AssetUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
