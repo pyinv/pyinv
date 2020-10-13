@@ -27,7 +27,7 @@ SECRET_KEY = "2s%dd!zmj^l=&z@m4g-wm=7m(&@cami9#tp4cqcdeg!%ouazy@"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost"]
 
 
 # Application definition
@@ -126,7 +126,7 @@ SERVER_EMAIL = "hub@roboticsoutreach.org"
 
 LANGUAGE_CODE = "en-gb"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/London"
 
 USE_I18N = True
 

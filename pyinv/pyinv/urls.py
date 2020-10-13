@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.shortcuts import render
 from django.urls import include, path
 
 admin.site.site_title = "PyInv Admin"
@@ -26,3 +27,10 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("auth/", include("django.contrib.auth.urls")),
 ]
+
+def handler403(request, exception, template_name="403.html"):
+    return render(request, template_name, {}, status=403)
+
+
+def handler404(request, exception, template_name="404.html"):
+    return render(request, template_name, {}, status=404)
