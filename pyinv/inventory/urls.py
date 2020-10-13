@@ -1,11 +1,19 @@
 from django.urls import path
 
-from .views import asset, consumable, consumable_model, manufacturer, model
+from .views import (
+    asset,
+    consumable,
+    consumable_model,
+    index,
+    manufacturer,
+    model,
+)
 
 app_name = "inventory"
 
 urlpatterns = [
-    path("", asset.InventorySearchView.as_view(), name="index"),
+    path("", index, name="index"),
+    path("asset/search", asset.AssetSearchView.as_view(), name="asset_search"),
     path("asset/create", asset.AssetCreateView.as_view(), name="asset_create"),
     path("asset/<slug:slug>", asset.AssetDisplayView.as_view(), name="asset_view"),
     path(

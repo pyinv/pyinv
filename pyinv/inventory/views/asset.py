@@ -18,7 +18,7 @@ from django.views.generic import (
 from inventory.models import Asset, Consumable
 
 
-class InventorySearchView(LoginRequiredMixin, ListView):
+class AssetSearchView(LoginRequiredMixin, ListView):
 
     model = Asset
     template_name = "inventory/search.html"
