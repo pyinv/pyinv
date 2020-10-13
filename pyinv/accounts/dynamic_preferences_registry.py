@@ -2,7 +2,8 @@ from re import match
 
 from django.core.exceptions import ValidationError
 from dynamic_preferences.registries import global_preferences_registry
-from dynamic_preferences.types import Section, StringPreference
+from dynamic_preferences.types import BooleanPreference, Section, StringPreference
+from dynamic_preferences.users.registries import user_preferences_registry
 
 general = Section('general')
 
@@ -22,3 +23,10 @@ class InventoryOrg(StringPreference):
     def validate(self, value):
         if not match("^[A-Z]{3}$", value):
             raise ValidationError("Must consist of three capital letters")
+
+
+@user_preferences_registry.register
+class DarkThemeEnabled(BooleanPreference):
+    """Enable dark mode"""
+    name = 'dark_mode_enabled'
+    default = False

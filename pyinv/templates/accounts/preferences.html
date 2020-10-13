@@ -1,0 +1,23 @@
+{% extends 'base_float.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Preferences{% endblock %}
+
+{% block inner %}
+    <form method="post">
+      {% csrf_token %}
+      {% for message in messages %}
+        <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ message }}
+        </div>
+      {% endfor %}
+      {{ form|crispy }}
+      <div class="text-center">
+          <button class="btn btn-success" type="submit">Update</button>
+      </div>
+    </form>
+{% endblock %}
