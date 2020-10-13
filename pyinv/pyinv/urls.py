@@ -28,6 +28,7 @@ urlpatterns = [
     path("auth/", include("django.contrib.auth.urls")),
 ]
 
+
 def handler403(request, exception, template_name="403.html"):
     return render(request, template_name, {}, status=403)
 

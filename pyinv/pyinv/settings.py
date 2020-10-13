@@ -167,11 +167,13 @@ DYNAMIC_PREFERENCES = {
 
     # Allow quick editing of preferences directly in admin list view
     # WARNING: enabling this feature can cause data corruption if multiple users
-    # use the same list view at the same time, see https://code.djangoproject.com/ticket/11313
+    # use the same list view at the same time
+    # see https://code.djangoproject.com/ticket/11313
     'ADMIN_ENABLE_CHANGELIST_FORM': False,
 
     # Customize how you can access preferences from managers. The default is to
-    # separate sections and keys with two underscores. This is probably not a settings you'll
+    # separate sections and keys with two underscores.
+    # This is probably not a settings you'll
     # want to change, but it's here just in case
     'SECTION_KEY_SEPARATOR': '__',
 

@@ -2,7 +2,6 @@ from random import choice
 from re import compile
 
 import damm32
-from django.conf import settings
 from django.core.exceptions import ValidationError
 from dynamic_preferences.registries import global_preferences_registry
 

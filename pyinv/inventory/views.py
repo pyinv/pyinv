@@ -9,7 +9,13 @@ from django.db.models import Q
 from django.forms import HiddenInput
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
 
 from .models import (
     Asset,
@@ -30,7 +36,11 @@ class InventorySearchView(LoginRequiredMixin, ListView):
         """If there is exactly one result, redirect us to it."""
         response = super().get(request, *args, **kwargs)
         if self.object_list.count() == 1:
-            return redirect("inventory:asset_view", slug=self.object_list.get().asset_code)
+            target_asset = self.object_list.get()
+            return redirect(
+                "inventory:asset_view",
+                slug=target_asset.asset_code,
+            )
         return response
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -83,11 +93,20 @@ class AssetDisplayView(LoginRequiredMixin, DetailView):
         ).order_by("-updated_at").all()
         return data
 
+
 class AssetCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
     model = Asset
     template_name = "inventory/asset_create.html"
-    fields = ["asset_code", "name", "location", "asset_model", "condition", "notes", "audited_at"]
+    fields = [
+        "asset_code",
+        "name",
+        "location",
+        "asset_model",
+        "condition",
+        "notes",
+        "audited_at",
+    ]
     initial = {"audited_at": datetime.now()}
 
     permission_required = "inventory.add_asset"
@@ -100,6 +119,7 @@ class AssetCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
     def get_success_url(self):
         return self.object.get_absolute_url()
+
 
 class AssetUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
@@ -158,7 +178,7 @@ class AssetModelCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateVi
     model = AssetModel
     template_name = "inventory/model_create.html"
     fields = ["name", "asset_manufacturer", "is_container", "notes"]
-    
+
     permission_required = "inventory.add_asset_model"
     permission_denied_message = "You do not have permission to create asset models."
 
@@ -213,14 +233,18 @@ class AssetManufacturerDisplayView(LoginRequiredMixin, DetailView):
         return data
 
 
-class AssetManufacturerCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class AssetManufacturerCreateView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    CreateView,
+):
 
     model = AssetManufacturer
     template_name = "inventory/manufacturer_create.html"
     fields = ["name", "notes"]
-    
+
     permission_required = "inventory.add_asset_manufacturer"
-    permission_denied_message = "You do not have permission to create asset manufacturers."
+    permission_denied_message = "You do not have permission to create asset manufacturers"
 
     def get_success_url(self):
         return self.object.get_absolute_url()
