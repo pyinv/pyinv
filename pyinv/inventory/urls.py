@@ -48,6 +48,11 @@ urlpatterns = [
         name="manufacturer_view",
     ),
     path(
+        "manufacturer/create",
+        views.AssetManufacturerCreateView.as_view(),
+        name="manufacturer_create",
+    ),
+    path(
         "manufacturer/<int:pk>/edit",
         views.AssetManufacturerUpdateView.as_view(),
         name="manufacturer_edit",

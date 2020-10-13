@@ -2,11 +2,11 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %}Creating Model{% endblock %}
+{% block title %}Creating Manufacturer{% endblock %}
 
 {% block content %}
 
-    <h2>Create New Model</h2>
+    <h2>Create New Manufacturer</h2>
 
     <form method="post">
       {% csrf_token %}
@@ -20,7 +20,7 @@
       {% endfor %}
       {{ form|crispy }}
       <div class="text-center">
-          <button class="btn btn-success" type="submit">Create Model</button>
+          <button class="btn btn-success" type="submit">Create Manufacturer</button>
       </div>
     </form>
 {% endblock %}

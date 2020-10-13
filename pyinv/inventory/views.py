@@ -213,6 +213,19 @@ class AssetManufacturerDisplayView(LoginRequiredMixin, DetailView):
         return data
 
 
+class AssetManufacturerCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+
+    model = AssetManufacturer
+    template_name = "inventory/manufacturer_create.html"
+    fields = ["name", "notes"]
+    
+    permission_required = "inventory.add_asset_manufacturer"
+    permission_denied_message = "You do not have permission to create asset manufacturers."
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()
+
+
 class AssetManufacturerUpdateView(
     LoginRequiredMixin, PermissionRequiredMixin, UpdateView
 ):
