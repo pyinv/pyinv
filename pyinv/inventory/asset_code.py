@@ -3,6 +3,7 @@ from re import compile
 
 import damm32
 from django.core.exceptions import ValidationError
+from django.db.utils import OperationalError
 from dynamic_preferences.registries import global_preferences_registry
 
 d32 = damm32.Damm32()
@@ -13,8 +14,12 @@ ASSET_CODE_REGEX = compile("^([A-Za-z0-9]{3})-([A-Za-z0-9]{3})-([A-Za-z0-9]{3})$
 def validate_asset_code(value: str) -> None:
     """Validate an asset code."""
     match = ASSET_CODE_REGEX.match(value)
-    global_preferences = global_preferences_registry.manager()
-    org = global_preferences["inventory_org"]
+
+    try:
+        global_preferences = global_preferences_registry.manager()
+        org = global_preferences["inventory_org"]
+    except OperationalError:
+        org = "INV"
 
     if match:
         groups = match.groups()

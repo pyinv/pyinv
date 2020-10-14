@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # First Party
     "accounts",
     "inventory",
+    "oobe",
     # Third Party
     "crispy_forms",
     "simple_history",
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "simple_history.middleware.HistoryRequestMiddleware",
+    "oobe.middleware.OOBEMiddleware",
     "accounts.middleware.ProfileRequiredMiddleware",
 ]
 

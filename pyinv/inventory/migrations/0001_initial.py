@@ -2,35 +2,7 @@
 
 import django.db.models.deletion
 import inventory.asset_code
-from django.conf import settings
 from django.db import migrations, models
-
-
-def add_root_assets(apps, schema_editor):
-    Asset = apps.get_model("inventory", "Asset")
-    AssetModel = apps.get_model("inventory", "AssetModel")
-    AssetManufacturer = apps.get_model("inventory", "AssetManufacturer")
-
-    org = settings.INVENTORY_ORG
-
-    man = AssetManufacturer(name=org)
-    man.save()
-
-    model = AssetModel(name="Location", is_container=True, asset_manufacturer=man)
-    model.save()
-
-    world = Asset(
-        name="World",
-        asset_code="SRO-WOR-LDI",
-        location_id=None,
-        asset_model=model,
-        condition="U",
-        notes="The world. The root location for everything.",
-    )
-    world.save()
-
-    world.location = world
-    world.save()
 
 
 class Migration(migrations.Migration):
@@ -136,20 +108,10 @@ class Migration(migrations.Migration):
                 (
                     "location",
                     models.ForeignKey(
-                        blank=True,
-                        null=True,
                         on_delete=django.db.models.deletion.PROTECT,
                         to="inventory.Asset",
                     ),
                 ),
             ],
-        ),
-        migrations.RunPython(code=add_root_assets,),
-        migrations.AlterField(
-            model_name="asset",
-            name="location",
-            field=models.ForeignKey(
-                on_delete=django.db.models.deletion.PROTECT, to="inventory.Asset"
-            ),
         ),
     ]

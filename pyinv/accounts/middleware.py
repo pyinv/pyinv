@@ -18,6 +18,8 @@ class ProfileRequiredMiddleware(MiddlewareMixin):
                 or not request.user.email
             )
             and not request.path.startswith(reverse("accounts:profile"))
+            and not request.path.startswith(reverse("oobe:index"))
+            and not request.path.startswith("/auth")
         ):
             request.session["onboarding"] = True
             messages.info(request, "Please fill out your profile to continue.")
