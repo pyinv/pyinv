@@ -4,28 +4,24 @@ Online Inventory and Asset management system
 
 This project uses the Django web framework.
 
-## Apps
+## Features
 
-There are several apps within this project.
+### Current Featureset
 
-### Accounts
+- Asset oriented inventory system
+- Based around a hierarchical tree of assets, some of which contain others.
+- Track asset models and manufacturers, including the history thereof
+- Track consumable items, where only the quantity and location matter
+- Human-friendly Asset Code format with Damm checksum
+- **Dark Mode**
 
-Manages users.
+### Planned
 
-- Update profile
-- Registration
-- TODO: Set Permissions
-
-### Inventory
-
-The inventory manages the SRO inventory.
-
-- View/Add/Edit Assets
-- View/Add/Edit Asset Models
-- View/Add/Edit Asset Manufacturers
-- View/Add/Edit Consumables
-- TODO: Label Printing
-- TODO: Auditing
+- Powerful auditing engine
+- Printer Support
+- REST API
+- Report generation
+- Barcode scanner support
 
 ## Deployment
 
