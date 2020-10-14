@@ -68,6 +68,8 @@ def location_validator(val):
         raise ValidationError(f"{asset} is not a container.")
 
 
+
+
 class Asset(models.Model):
     """An individual instance of a assetmodel."""
 
@@ -92,6 +94,7 @@ class Asset(models.Model):
         "Asset",
         on_delete=models.PROTECT,
         validators=[location_validator],
+        null=True,  # Rely on validation in clean
         limit_choices_to={"asset_model__is_container": True},
     )
     asset_model = models.ForeignKey(AssetModel, on_delete=models.PROTECT)
@@ -124,6 +127,22 @@ class Asset(models.Model):
 
     def get_delete_url(self):
         return reverse("inventory:asset_delete", args=[self.asset_code])
+
+    def clean(self):
+        """Validate the model."""
+        
+        if self.location_id is None and self.asset_code[4:10] != 'WOR-LD':
+            # Check that the location is not null, unless it's a world location.
+            raise ValidationError("Assets must have a valid location.")
+
+        if self.location and self.location == self:
+            # Only the world can be within itself
+            if self.asset_code[4:10] != 'WOR-LD':
+                raise ValidationError("Assets cannot be stored within themselves.")
+        else:
+            # The world must be within itself
+            if self.asset_code[4:10] == 'WOR-LD':
+                raise ValidationError(f"DimensionError: {self.location} is not a TARDIS")
 
 
 class ConsumableModel(models.Model):
