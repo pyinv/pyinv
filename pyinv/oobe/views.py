@@ -66,6 +66,21 @@ class OOBE(LoginRequiredMixin, OOBECheckMixin, generic.FormView):
         world.location = world
         world.save()
 
+        code = form.data["inventory_org"] + "UNKWN"
+        code += d32.calculate(code)
+
+        unknown = Asset(
+            name="Unknown Location",
+            asset_code=f"{code[:3]}-{code[3:6]}-{code[6:9]}",
+            location_id=world,
+            asset_model=model,
+            condition="U",
+            notes="Assets that we do not know the location of.",
+            audited_at=datetime.now()
+        )
+        unknown.save()
+
+
         if "onboarding" in self.request.session:
             self.request.session.pop("onboarding")
         messages.success(self.request, "PyInv has been successfully setup!")
