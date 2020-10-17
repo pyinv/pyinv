@@ -47,6 +47,11 @@ urlpatterns = [
         name="consumablemodel_delete",
     ),
     path(
+        "consumable/create",
+        consumable.ConsumableCreateView.as_view(),
+        name="consumable_create",
+    ),
+    path(
         "consumable/<int:pk>/edit",
         consumable.ConsumableUpdateView.as_view(),
         name="consumable_edit",
