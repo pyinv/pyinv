@@ -43,18 +43,7 @@ class AssetSearchView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         if "query" in self.request.GET and self.request.GET["query"] != "":
-            return Asset.objects.filter(
-                Q(name__icontains=self.request.GET["query"])
-                | Q(notes__icontains=self.request.GET["query"])
-                | Q(asset_code__icontains=self.request.GET["query"])
-                | Q(asset_model__name__icontains=self.request.GET["query"])
-                | Q(
-                    asset_model__asset_manufacturer__name__icontains=self.request.GET[
-                        "query"
-                    ]
-                ),
-                ~Q(condition="D"),  # Ignore disposed assets.
-            ).order_by("-updated_at")
+            return Asset.get_search_queryset(self.request.GET["query"])
         else:
             return Asset.objects.order_by("-updated_at").all()
 

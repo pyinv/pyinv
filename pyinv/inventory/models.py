@@ -144,6 +144,21 @@ class Asset(models.Model):
             if self.asset_code[4:10] == 'WOR-LD':
                 raise ValidationError(f"DimensionError: {self.location} is not a TARDIS")
 
+    @classmethod
+    def get_search_queryset(cls, query: str):
+        return Asset.objects.filter(
+            Q(name__icontains=self.request.GET["query"])
+            | Q(notes__icontains=self.request.GET["query"])
+            | Q(asset_code__icontains=self.request.GET["query"])
+            | Q(asset_model__name__icontains=self.request.GET["query"])
+            | Q(
+                asset_model__asset_manufacturer__name__icontains=self.request.GET[
+                    "query"
+                ]
+            ),
+            ~Q(condition="D"),  # Ignore disposed assets.
+        ).order_by("-updated_at")
+
 
 class ConsumableModel(models.Model):
     """The model of a consumable asset."""
