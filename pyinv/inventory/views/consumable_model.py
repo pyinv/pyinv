@@ -2,8 +2,21 @@ from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
 )
-from django.views.generic import DeleteView, DetailView, UpdateView
+from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
 from inventory.models import Consumable, ConsumableModel
+
+
+class ConsumableModelCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+
+    model = ConsumableModel
+    template_name = "inventory/consumablemodel_create.html"
+    fields = ["name", "asset_manufacturer", "notes"]
+
+    permission_required = "inventory.add_consumable_model"
+    permission_denied_message = "You do not have permission to create consumable models."
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()
 
 
 class ConsumableModelDisplayView(LoginRequiredMixin, DetailView):

@@ -27,6 +27,11 @@ urlpatterns = [
         name="asset_delete",
     ),
     path(
+        "consumablemodel/create",
+        consumable_model.ConsumableModelCreateView.as_view(),
+        name="consumablemodel_create",
+    ),
+    path(
         "consumablemodel/<int:pk>",
         consumable_model.ConsumableModelDisplayView.as_view(),
         name="consumablemodel_view",
