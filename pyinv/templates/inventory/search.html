@@ -1,30 +1,27 @@
 {% extends "base.html" %}
 
-{% block title %}
-{% if query %}
-    Asset Search: "{{ query }}"
-    {% else %}
-    Asset Search
-    {% endif %}
-{% endblock %}
+{% block title %}Inventory{% endblock %}
 
 {% block content %}
 
     {% if query %}
-    <h2>Asset Search: "{{ query }}"</h2>
+    <h2>Inventory Search: "{{ query }}"</h2>
     {% else %}
-    <h2>Asset Search</h2>
+    <h2>Inventory Search</h2>
     {% endif %}
 
-    <form action="{% url 'inventory:asset_search' %}">
+    <form action="{% url 'inventory:index' %}">
     <div class="input-group mb-3">
       <input type="text" class="form-control" name="query" placeholder="Search..." value="{{ query }}">
       <div class="input-group-append">
         <button class="btn btn-secondary" type="button"><i class="fa fa-search"></i></button>
       </div>
     </div>
+</form>
 
-    <p>You can also <a href="{% url 'inventory:index' %}">search all objects</a>.</p>
+
+
+    <p>TODO: Update this page to support all types</p>
 
     {% include "inventory/partials/asset_table.html" %}
 

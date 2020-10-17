@@ -4,7 +4,7 @@ from .views import (
     asset,
     consumable,
     consumable_model,
-    index,
+    misc,
     manufacturer,
     model,
 )
@@ -12,7 +12,7 @@ from .views import (
 app_name = "inventory"
 
 urlpatterns = [
-    path("", index, name="index"),
+    path("", misc.SearchView.as_view(), name="index"),
     path("asset/search", asset.AssetSearchView.as_view(), name="asset_search"),
     path("asset/create", asset.AssetCreateView.as_view(), name="asset_create"),
     path("asset/<slug:slug>", asset.AssetDisplayView.as_view(), name="asset_view"),
