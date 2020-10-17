@@ -1,8 +1,10 @@
-{% extends "inventory/partials/base.html" %}
+{% extends "base.html" %}
 
 {% block title %}Inventory{% endblock %}
 
-{% block inventory_content %}
+{% block content %}
+
+    <h2>Asset Search: "{{ query }}"</h2>
 
     {% include "inventory/partials/asset_table.html" %}
 

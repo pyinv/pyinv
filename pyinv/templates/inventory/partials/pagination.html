@@ -1,20 +1,3 @@
-{% extends "base.html" %}
-
-{% block content %}
-
-<br/>
-
-<form action="{% url 'inventory:asset_search' %}">
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" name="query" placeholder="Search for Assets" value="{{ query }}">
-      <div class="input-group-append">
-        <button class="btn btn-secondary" type="button">Search</button>
-      </div>
-    </div>
-</form>
-
-{% block inventory_content %}{% endblock %}
-
 {%  if is_paginated %}
 
     <nav>
@@ -51,4 +34,3 @@
       </ul>
     </nav>
 {% endif %}
-{% endblock %}

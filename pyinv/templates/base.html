@@ -12,6 +12,7 @@
     {% else %}
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/flatly/bootstrap.min.css" integrity="sha384-qF/QmIAj5ZaYFAeQcrQ6bfVMAh4zZlrGwTPY7T/M+iTTLJqJBJjwwnsE5Y0mV7QK" crossorigin="anonymous">
     {% endif %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     {% block css %}{% endblock %}
 </head>
 
@@ -67,6 +68,16 @@
                     <a class="dropdown-item" href="#">Generate Reports</a>
                 </li>
             </ul>
+            <form class="mx-2 my-auto d-inline w-100" action="{% url 'inventory:asset_search' %}">
+                <div class="input-group">
+                    <input type="text" name="query" class="form-control border border-right-0" placeholder="Search...">
+                    <span class="input-group-append">
+                        <button class="btn btn-secondary border border-left-0" type="button">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </form>
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
@@ -98,7 +109,9 @@
         </div>
     </nav>
     <div class="container">
+        <br />
         {% block content %}{% endblock %}
+        {% include "inventory/partials/pagination.html" %}
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

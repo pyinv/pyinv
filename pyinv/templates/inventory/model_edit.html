@@ -1,10 +1,10 @@
-{% extends "inventory/partials/base.html" %}
+{% extends "base.html" %}
 
 {% load crispy_forms_tags %}
 
 {% block title %}{{ object.display_name }}{% endblock %}
 
-{% block inventory_content %}
+{% block content %}
 
     <h2>Editing Model: {{ object.display_name }}</h2>
 
