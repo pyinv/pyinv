@@ -11,18 +11,32 @@
     {% endif %}
 
     <form action="{% url 'inventory:index' %}">
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" name="query" placeholder="Search..." value="{{ query }}">
-      <div class="input-group-append">
-        <button class="btn btn-secondary" type="button"><i class="fa fa-search"></i></button>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" name="query" placeholder="Search..." value="{{ query }}">
+        <div class="input-group-append">
+          <button class="btn btn-secondary" type="button"><i class="fa fa-search"></i></button>
+        </div>
       </div>
-    </div>
-</form>
+    </form>
 
 
 
     <p>TODO: Update this page to support all types</p>
 
+    <h3>Assets</h3>
+
     {% include "inventory/partials/asset_table.html" %}
+
+    <h3>Models</h3>
+
+    <p>Not implemented :/</p>
+
+    <h3>Manufacturers</h3>
+
+    <p>Not implemented :/</p>
+
+    <h3>Consumables</h3>
+
+    <p>Not implemented :/</p>
 
 {% endblock %}
