@@ -21,7 +21,7 @@ from inventory.models import Asset, Consumable
 class AssetSearchView(LoginRequiredMixin, ListView):
 
     model = Asset
-    template_name = "inventory/search.html"
+    template_name = "inventory/asset_search.html"
     paginate_by = 15
 
     def get(self, request, *args, **kwargs):
