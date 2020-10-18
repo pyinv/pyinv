@@ -28,6 +28,13 @@ class AssetManufacturer(models.Model):
     def get_delete_url(self):
         return reverse("inventory:manufacturer_delete", args=[self.pk])
 
+    @classmethod
+    def get_search_queryset(cls, query: str):
+        return AssetManufacturer.objects.filter(
+            Q(name__icontains=query)
+            | Q(notes__icontains=query)
+        ).order_by("-updated_at")
+
 
 class AssetModel(models.Model):
     """The model of an asset."""
@@ -58,6 +65,14 @@ class AssetModel(models.Model):
     def get_delete_url(self):
         return reverse("inventory:model_delete", args=[self.pk])
 
+    @classmethod
+    def get_search_queryset(cls, query: str):
+        return AssetModel.objects.filter(
+            Q(name__icontains=query)
+            | Q(notes__icontains=query)
+            | Q(asset_manufacturer__name__icontains=query),
+        ).order_by("-updated_at")
+
 
 def location_validator(val):
     try:
@@ -67,8 +82,6 @@ def location_validator(val):
 
     if not asset.asset_model.is_container:
         raise ValidationError(f"{asset} is not a container.")
-
-
 
 
 class Asset(models.Model):
@@ -192,6 +205,15 @@ class ConsumableModel(models.Model):
     def get_delete_url(self):
         return reverse("inventory:consumablemodel_delete", args=[self.pk])
 
+    @classmethod
+    def get_search_queryset(cls, query: str):
+        return ConsumableModel.objects.filter(
+            Q(name__icontains=query)
+            | Q(notes__icontains=query)
+            | Q(asset_manufacturer__name__icontains=query),
+        ).order_by("-updated_at")
+
+
 
 class Consumable(models.Model):
     """A count of a consumable asset in a location."""
@@ -213,3 +235,12 @@ class Consumable(models.Model):
 
     def get_edit_url(self):
         return reverse("inventory:consumable_edit", args=[self.pk])
+
+    @classmethod
+    def get_search_queryset(cls, query: str):
+        return AssetModel.objects.filter(
+            Q(location__name__icontains=query)
+            | Q(notes__icontains=query)
+            | Q(consumable_model__name__icontains=query),
+        ).order_by("-updated_at")
+
