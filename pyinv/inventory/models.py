@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
+from django.db.models import Q
 from simple_history.models import HistoricalRecords
 
 from .asset_code import generate_asset_code, validate_asset_code
@@ -147,15 +148,11 @@ class Asset(models.Model):
     @classmethod
     def get_search_queryset(cls, query: str):
         return Asset.objects.filter(
-            Q(name__icontains=self.request.GET["query"])
-            | Q(notes__icontains=self.request.GET["query"])
-            | Q(asset_code__icontains=self.request.GET["query"])
-            | Q(asset_model__name__icontains=self.request.GET["query"])
-            | Q(
-                asset_model__asset_manufacturer__name__icontains=self.request.GET[
-                    "query"
-                ]
-            ),
+            Q(name__icontains=query)
+            | Q(notes__icontains=query)
+            | Q(asset_code__icontains=query)
+            | Q(asset_model__name__icontains=query)
+            | Q(asset_model__asset_manufacturer__name__icontains=query),
             ~Q(condition="D"),  # Ignore disposed assets.
         ).order_by("-updated_at")
 
