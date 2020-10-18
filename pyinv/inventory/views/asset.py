@@ -28,11 +28,7 @@ class AssetSearchView(LoginRequiredMixin, ListView):
         """If there is exactly one result, redirect us to it."""
         response = super().get(request, *args, **kwargs)
         if self.object_list.count() == 1:
-            target_asset = self.object_list.get()
-            return redirect(
-                "inventory:asset_view",
-                slug=target_asset.asset_code,
-            )
+            return redirect(self.object_list.get())
         return response
 
     def get_context_data(self, *, object_list=None, **kwargs):

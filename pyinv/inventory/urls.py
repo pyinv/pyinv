@@ -56,6 +56,7 @@ urlpatterns = [
         consumable.ConsumableUpdateView.as_view(),
         name="consumable_edit",
     ),
+    path("models", model.AssetModelSearchView.as_view(), name="model_search"),
     path(
         "models/<int:pk>",
         model.AssetModelDisplayView.as_view(),
