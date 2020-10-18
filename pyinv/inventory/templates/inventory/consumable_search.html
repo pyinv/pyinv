@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if query %}
+    Consumable Search: "{{ query }}"
+    {% else %}
+    Consumable Search
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    {% if query %}
+    <h2>Consumable Search: "{{ query }}"</h2>
+    {% else %}
+    <h2>Consumable Search</h2>
+    {% endif %}
+
+    <form action="{% url 'inventory:consumable_search' %}">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" name="query" placeholder="Search..." value="{{ query }}">
+      <div class="input-group-append">
+        <button class="btn btn-secondary" type="button"><i class="fa fa-search"></i></button>
+      </div>
+    </div>
+
+    <p>You can also <a href="{% url 'inventory:index' %}">search all objects</a>.</p>
+
+    {% include "inventory/partials/consumable_table.html" with consumables=page_obj %}
+
+{% endblock %}

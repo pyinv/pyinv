@@ -238,7 +238,7 @@ class Consumable(models.Model):
 
     @classmethod
     def get_search_queryset(cls, query: str):
-        return AssetModel.objects.filter(
+        return cls.objects.filter(
             Q(location__name__icontains=query)
             | Q(notes__icontains=query)
             | Q(consumable_model__name__icontains=query),

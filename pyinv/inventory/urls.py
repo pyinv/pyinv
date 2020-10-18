@@ -46,6 +46,7 @@ urlpatterns = [
         consumable_model.ConsumableModelDeleteView.as_view(),
         name="consumablemodel_delete",
     ),
+    path("consumables", consumable.ConsumableSearchView.as_view(), name="consumable_search"),
     path(
         "consumables/create",
         consumable.ConsumableCreateView.as_view(),
