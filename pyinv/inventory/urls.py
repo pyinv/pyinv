@@ -73,6 +73,7 @@ urlpatterns = [
         model.AssetModelDeleteView.as_view(),
         name="model_delete",
     ),
+    path("manufacturers", manufacturer.AssetManufacturerSearchView.as_view(), name="manufacturer_search"),
     path(
         "manufacturers/<int:pk>",
         manufacturer.AssetManufacturerDisplayView.as_view(),

@@ -1,0 +1,22 @@
+<p>Total results: {{ page_obj.paginator.count }}</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Display Name</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for man in page_obj %}
+        <tr>
+          <th scope="row">{{ man.name }}</th>
+          <td>
+              <div class="btn-group" role="group">
+                  <a type="button" class="btn btn-success btn-sm" href="{% url "inventory:manufacturer_view" man.pk %}">View</a>
+              </div>
+          </td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>

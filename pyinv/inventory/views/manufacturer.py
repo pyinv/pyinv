@@ -4,8 +4,35 @@ from django.contrib.auth.mixins import (
 )
 from django.core.paginator import Paginator
 from django.urls import reverse
-from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
+from django.shortcuts import redirect
+from django.views.generic import CreateView, DeleteView, DetailView, UpdateView, ListView
 from inventory.models import AssetManufacturer
+
+
+class AssetManufacturerSearchView(LoginRequiredMixin, ListView):
+
+    model = AssetManufacturer
+    template_name = "inventory/manufacturer_search.html"
+    paginate_by = 15
+
+    def get(self, request, *args, **kwargs):
+        """If there is exactly one result, redirect us to it."""
+        response = super().get(request, *args, **kwargs)
+        if self.object_list.count() == 1:
+            return redirect(self.object_list.get())
+        return response
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        data = super().get_context_data(object_list=object_list, **kwargs)
+        if "query" in self.request.GET:
+            data["query"] = self.request.GET["query"]
+        return data
+
+    def get_queryset(self):
+        if "query" in self.request.GET and self.request.GET["query"] != "":
+            return AssetManufacturer.get_search_queryset(self.request.GET["query"])
+        else:
+            return AssetManufacturer.objects.order_by("-updated_at").all()
 
 
 class AssetManufacturerDisplayView(LoginRequiredMixin, DetailView):
