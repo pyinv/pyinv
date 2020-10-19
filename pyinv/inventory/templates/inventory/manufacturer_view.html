@@ -29,5 +29,5 @@
     </div>
 
     <h3>All models by {{ object.name }}</h3>
-    {% include "inventory/partials/model_table.html" %}
+    {% include "inventory/partials/model_table.html" with models=page_obj %}
 {% endblock %}

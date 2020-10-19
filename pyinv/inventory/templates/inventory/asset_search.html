@@ -26,6 +26,6 @@
 
     <p>You can also <a href="{% url 'inventory:index' %}">search all objects</a>.</p>
 
-    {% include "inventory/partials/asset_table.html" %}
+    {% include "inventory/partials/asset_table.html" with assets=page_obj %}
 
 {% endblock %}

@@ -1,5 +1,3 @@
-<p>Total results: {{ page_obj.paginator.count }}</p>
-
 <table class="table table-striped">
   <thead>
     <tr>
@@ -8,7 +6,7 @@
     </tr>
   </thead>
   <tbody>
-    {% for man in page_obj %}
+    {% for man in manufacturers %}
         <tr>
           <th scope="row">{{ man.name }}</th>
           <td>

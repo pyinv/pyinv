@@ -1,5 +1,3 @@
-<p>Total results: {{ page_obj.paginator.count }}</p>
-
 <table class="table table-striped">
   <thead>
     <tr>
@@ -10,7 +8,7 @@
     </tr>
   </thead>
   <tbody>
-    {% for model in page_obj %}
+    {% for model in models %}
         <tr>
           <th scope="row">{{ model.display_name }}</th>
           <td><a href="{% url "inventory:manufacturer_view" model.asset_manufacturer.id %}">{{ model.asset_manufacturer }}</a></td>

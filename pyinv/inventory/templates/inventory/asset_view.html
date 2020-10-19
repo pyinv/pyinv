@@ -71,7 +71,7 @@
         <br/>
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="assets" role="tabpanel" >
-              {% include "inventory/partials/asset_table.html" %}
+              {% include "inventory/partials/asset_table.html" with assets=page_obj %}
           </div>
           <div class="tab-pane fade" id="consumables" role="tabpanel">
               {% include "inventory/partials/consumable_table.html" %}

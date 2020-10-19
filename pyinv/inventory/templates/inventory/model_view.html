@@ -41,5 +41,5 @@
     </div>
 
     <h3>All instances of {{ object.display_name }}</h3>
-    {% include "inventory/partials/asset_table.html" %}
+    {% include "inventory/partials/asset_table.html" with assets=page_obj %}
 {% endblock %}

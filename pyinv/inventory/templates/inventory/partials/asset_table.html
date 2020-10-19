@@ -1,5 +1,3 @@
-<p>Total results: {{ page_obj.paginator.count }}</p>
-
 <table class="table table-striped">
   <thead>
     <tr>
@@ -11,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-    {% for asset in page_obj %}
+    {% for asset in assets %}
         <tr>
           <th scope="row">{{ asset.asset_code }}</th>
           <td>{{ asset.display_name }}</td>
