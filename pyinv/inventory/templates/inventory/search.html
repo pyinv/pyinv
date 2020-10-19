@@ -19,20 +19,42 @@
       </div>
     </form>
 
-    <h3>Assets</h3>
+    {% if count_sum > 0 %}
+      <p>{{ count_sum }} results.</p>
+    {% else %}
+      <p>No results.</p>
+    {% endif %}
 
-    {% include "inventory/partials/search_asset_table.html" %}
+    {% if assets_count > 0 %}
+      <h3>Assets</h3>
+      {% include "inventory/partials/asset_table.html" %}
+      {% if assets_count > 2 %}
+        <a class="btn btn-primary btn-sm float-right" type="button" href="{% url 'inventory:asset_search' %}?query={{ query }}">View all {{ assets_count }} results</a>
+      {% endif %}
+    {% endif %}
 
-    <h3>Models</h3>
+    {% if models_count > 0 %}
+      <h3>Models</h3>
+      {% include "inventory/partials/model_table.html" %}
+      {% if models_count > 2 %}
+        <a class="btn btn-primary btn-sm float-right" type="button" href="{% url 'inventory:model_search' %}?query={{ query }}">View all {{ models_count }} results</a>
+      {% endif %}
+    {% endif %}
 
-    <p>Not implemented :/</p>
+    {% if manufacturers_count > 0 %}
+      <h3>Manufacturers</h3>
+      {% include "inventory/partials/manufacturer_table.html" %}
+      {% if manufacturers_count > 2 %}
+        <a class="btn btn-primary btn-sm float-right" type="button" href="{% url 'inventory:manufacturer_search' %}?query={{ query }}">View all {{ manufacturers_count }} results</a>
+      {% endif %}
+    {% endif %}
 
-    <h3>Manufacturers</h3>
-
-    <p>Not implemented :/</p>
-
-    <h3>Consumables</h3>
-
-    <p>Not implemented :/</p>
+    {% if consumables_count > 0 %}
+      <h3>Consumables</h3>
+      {% include "inventory/partials/consumable_table.html" %}
+      {% if consumables_count > 2 %}
+        <a class="btn btn-primary btn-sm float-right" type="button" href="{% url 'inventory:consumable_search' %}?query={{ query }}">View all {{ consumables_count }} results</a>
+      {% endif %}
+    {% endif %}
 
 {% endblock %}
