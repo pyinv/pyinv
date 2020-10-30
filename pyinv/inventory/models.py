@@ -144,6 +144,8 @@ class Asset(models.Model):
 
     def clean(self):
         """Validate the model."""
+
+        self.asset_code = self.asset_code.upper()
         
         if self.location_id is None and self.asset_code[4:10] != 'WOR-LD':
             # Check that the location is not null, unless it's a world location.
