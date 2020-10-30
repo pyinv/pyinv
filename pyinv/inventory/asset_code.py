@@ -29,9 +29,15 @@ def validate_asset_code(value: str) -> None:
             )
 
         e = "".join(groups)
-        if not d32.verify("".join(groups).upper()):
+        try:
+            if not d32.verify(e.upper()):
+                raise ValidationError(
+                    f"Invalid asset code check digit. {d32.calculate(e[:8])}"
+                )
+        except damm32.BadCharacterException:
+            bad_chars = ", ".join({c for c in e if c not in damm32.Damm32.ALPHABET})
             raise ValidationError(
-                f"Invalid asset code check digit. {d32.calculate(e[:8])}"
+                f"Invalid characters in code: {bad_chars}",
             )
     else:
         raise ValidationError("Invalid asset code format.")
